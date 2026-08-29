@@ -20,7 +20,7 @@
       "challenges": "Built a system that could handle a large, frequently changing product catalog without slowing admin work—simplifying uploads, image management, pricing, stock tracking, and categories while keeping the storefront fast and reliable.",
       "stack": ["Laravel", "React", "Vue.js", "Tailwind CSS", "MySQL", "Inertia", "HTML", "CSS", "PHP", "JavaScript"],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/CDsW2nORRrZO5ghlHD9mT684ZUNZp7NNhT1ossnN.png",
-      "liveUrl": "https://maktechlaravel.cloud/makgadgets",
+      "liveUrl": "https://makgadget.com/",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
@@ -49,7 +49,7 @@
         "CSS"
       ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/7Bg1SGJeLptnvTbBNaXquxo5M4F11EwDTGE36BMt.png",
-      "liveUrl": "https://maktechlaravel.cloud/mikhail-holdings-ltd",
+      "liveUrl": "https://mikhailholdingsserver.com/newsite",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
@@ -85,7 +85,7 @@
         "PHP"
       ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/S5RRXHdZ2HCIjSNWA3ZYBXOfteRpDbCOMcS37mRA.png",
-      "liveUrl": "https://maktechlaravel.cloud/onlinewill-write-power-of-attorney-forms",
+      "liveUrl": "https://onlinewillwrite.co.uk/",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
@@ -117,7 +117,7 @@
         "CSS"
       ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/03aoQ9gMSIQjnemLOm9Un9uhcMpCxlpkiaLaiZjX.png",
-      "liveUrl": "https://maktechlaravel.cloud/mobile-lube-llc",
+      "liveUrl": "https://mymobilelube.com/",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
@@ -191,7 +191,7 @@
         "Google Search Console"
       ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/CgdZACaQBUqBsIw4E6kNI34UpLr7bttelZIdOvSC.png",
-      "liveUrl": "https://maktechlaravel.cloud/dio-dio-glow",
+      "liveUrl": "https://diodioglow.com/",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
@@ -224,7 +224,7 @@
         "PHP"
       ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/QTJCgFGg1HtgTF5yZCnTj92VY4v7Ajfh0q3uRG2D.png",
-      "liveUrl": "https://maktechlaravel.cloud/simonjeger",
+      "liveUrl": "https://www.simonjeger.ch/",
       "githubUrl": "",
       "featured": true,
       "style": "showcase",
