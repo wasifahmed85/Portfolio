@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": "inv-stock-001",
+      "name": "Inventory & Stock Management",
+      "type": "Laravel Application",
+      "description": "Role-based inventory workflow with product, stock, supplier, and reporting modules.",
+      "stack": ["Laravel", "MySQL", "Eloquent", "Bootstrap"],
+      "image": "",
+      "liveUrl": "",
+      "githubUrl": "",
+      "featured": true,
+      "createdAt": "2025-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "payment-gw-002",
+      "name": "Payment Gateway Integration",
+      "type": "Backend Integration",
+      "description": "Secure checkout integration with transaction handling, validation, and admin visibility.",
+      "stack": ["PHP", "Laravel", "REST API", "MySQL"],
+      "image": "",
+      "liveUrl": "",
+      "githubUrl": "",
+      "featured": true,
+      "createdAt": "2025-03-01T00:00:00.000Z"
+    },
+    {
+      "id": "biz-site-003",
+      "name": "Responsive Business Website",
+      "type": "Frontend Build",
+      "description": "Mobile-first website with clean sections, reusable UI blocks, and browser-compatible styling.",
+      "stack": ["React", "Tailwind CSS", "JavaScript"],
+      "image": "",
+      "liveUrl": "",
+      "githubUrl": "",
+      "featured": false,
+      "createdAt": "2025-04-01T00:00:00.000Z"
+    }
+  ]
+}
