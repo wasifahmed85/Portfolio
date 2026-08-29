@@ -236,6 +236,9 @@ function Portfolio() {
 function AnimatedBackground() {
   return (
     <div className="motion-bg" aria-hidden="true">
+      <span className="motion-orb one" />
+      <span className="motion-orb two" />
+      <span className="motion-orb three" />
       <img src="/animated-bg.svg" alt="" />
     </div>
   );
@@ -270,11 +273,20 @@ function useRevealAnimation(deps) {
 }
 
 function Header({ menuOpen, setMenuOpen }) {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 18);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="site-header sticky top-0 z-40 border-b border-white/70 bg-white/80 backdrop-blur-xl">
+    <header className={`site-header sticky top-0 z-40 border-b border-white/70 bg-white/80 backdrop-blur-xl ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <a href="#home" className="flex items-center gap-3">
-          <span className="brand-mark grid h-11 w-11 place-items-center rounded bg-brand text-base font-bold text-white">WA</span>
+          <span className="brand-mark grid h-11 w-11 place-items-center rounded-xl bg-brand text-base font-bold text-white">WA</span>
           <span>
             <span className="block text-sm font-bold leading-5">Wasif Ahmed</span>
             <span className="block text-xs text-slate-500">Laravel Developer</span>
@@ -289,7 +301,7 @@ function Header({ menuOpen, setMenuOpen }) {
           ))}
         </nav>
 
-        <a href={`mailto:${profile.email}`} className="hire-button hidden items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand lg:flex">
+        <a href={`mailto:${profile.email}`} className="hire-button hidden items-center gap-2 rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand lg:flex">
           <Mail size={16} />
           Hire Me
         </a>
@@ -300,10 +312,10 @@ function Header({ menuOpen, setMenuOpen }) {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-line bg-white px-5 py-4 lg:hidden">
+        <div className="border-t border-line bg-white/95 px-5 py-4 backdrop-blur-xl lg:hidden">
           <nav className="mx-auto grid max-w-6xl gap-2">
             {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="rounded px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-mist" onClick={() => setMenuOpen(false)}>
+              <a key={item} href={`#${item.toLowerCase()}`} className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-mist" onClick={() => setMenuOpen(false)}>
                 {item}
               </a>
             ))}
@@ -715,10 +727,12 @@ function ClassicProjectCard({ project, showTag = false }) {
           <span key={item} className="stack-chip">{item}</span>
         ))}
       </div>
-      <a href={detailHref} className="project-link mt-5 inline-flex">
-        View details
-        <ArrowUpRight size={14} />
-      </a>
+      <div className="project-card-footer">
+        <a href={detailHref} className="project-link inline-flex">
+          View details
+          <ArrowUpRight size={14} />
+        </a>
+      </div>
     </article>
   );
 }
@@ -823,7 +837,7 @@ function Contact({ cv }) {
 
 function Footer() {
   return (
-    <footer className="relative z-10 border-t border-line bg-white px-5 py-6 text-center text-sm text-slate-500">
+    <footer className="relative z-10 border-t border-line bg-white/80 px-5 py-6 text-center text-sm text-slate-500 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 sm:flex-row sm:text-left">
         <p>Copyright {new Date().getFullYear()} Wasif Ahmed. Built with React, Tailwind CSS, and Laravel-minded care.</p>
         <a href="/admin" className="font-semibold text-brand hover:underline">

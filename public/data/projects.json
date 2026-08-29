@@ -18,7 +18,18 @@
         "Laravel + Inertia application architecture"
       ],
       "challenges": "Built a system that could handle a large, frequently changing product catalog without slowing admin work—simplifying uploads, image management, pricing, stock tracking, and categories while keeping the storefront fast and reliable.",
-      "stack": ["Laravel", "React", "Vue.js", "Tailwind CSS", "MySQL", "Inertia", "HTML", "CSS", "PHP", "JavaScript"],
+      "stack": [
+        "Laravel",
+        "React",
+        "Vue.js",
+        "Tailwind CSS",
+        "MySQL",
+        "Inertia",
+        "HTML",
+        "CSS",
+        "PHP",
+        "JavaScript"
+      ],
       "image": "https://api.maktechlaravel.cloud/storage/portfolio/CDsW2nORRrZO5ghlHD9mT684ZUNZp7NNhT1ossnN.png",
       "liveUrl": "https://makgadget.com/",
       "githubUrl": "",
