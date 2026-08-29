@@ -282,14 +282,29 @@ function Header({ menuOpen, setMenuOpen }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  React.useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMenuOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [setMenuOpen]);
+
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   return (
     <header className={`site-header sticky top-0 z-40 border-b border-white/70 bg-white/80 backdrop-blur-xl ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="brand-mark grid h-11 w-11 place-items-center rounded-xl bg-brand text-base font-bold text-white">WA</span>
-          <span>
-            <span className="block text-sm font-bold leading-5">Wasif Ahmed</span>
-            <span className="block text-xs text-slate-500">Laravel Developer</span>
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4">
+        <a href="#home" className="flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setMenuOpen(false)}>
+          <span className="brand-mark grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand text-sm font-bold text-white sm:h-11 sm:w-11 sm:text-base">WA</span>
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-bold leading-5">Wasif Ahmed</span>
+            <span className="block truncate text-xs text-slate-500">Laravel Developer</span>
           </span>
         </a>
 
@@ -306,19 +321,23 @@ function Header({ menuOpen, setMenuOpen }) {
           Hire Me
         </a>
 
-        <button className="icon-button lg:hidden" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu">
+        <button className="icon-button shrink-0 lg:hidden" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {menuOpen && (
-        <div className="border-t border-line bg-white/95 px-5 py-4 backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto grid max-w-6xl gap-2">
+        <div className="mobile-menu border-t border-line bg-white/95 px-4 py-4 backdrop-blur-xl lg:hidden">
+          <nav className="mx-auto grid max-w-6xl gap-1">
             {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-mist" onClick={() => setMenuOpen(false)}>
+              <a key={item} href={`#${item.toLowerCase()}`} className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-mist" onClick={() => setMenuOpen(false)}>
                 {item}
               </a>
             ))}
+            <a href={`mailto:${profile.email}`} className="hire-button mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white" onClick={() => setMenuOpen(false)}>
+              <Mail size={16} />
+              Hire Me
+            </a>
           </nav>
         </div>
       )}
@@ -340,51 +359,51 @@ function Hero({ cv }) {
 
   return (
     <section id="home" className="hero-grid animated-grid hero-modern border-b border-line">
-      <div className="mx-auto grid min-h-[calc(100vh-76px)] max-w-6xl items-center gap-10 px-5 py-14 lg:grid-cols-[1.06fr_0.94fr] lg:py-16">
-        <div className="hero-copy">
-          <div className="hero-badge mb-5 inline-flex items-center gap-2 rounded border border-line bg-mist px-3 py-2 text-sm font-semibold text-brand">
-            <Sparkles size={16} />
-            {profile.experience} building Laravel web applications
+      <div className="mx-auto grid min-h-0 max-w-6xl items-start gap-6 px-4 py-8 sm:gap-8 sm:px-5 sm:py-12 lg:min-h-[calc(100vh-76px)] lg:items-center lg:grid-cols-[1.06fr_0.94fr] lg:gap-10 lg:py-16">
+        <div className="hero-copy min-w-0">
+          <div className="hero-badge mb-4 inline-flex max-w-full items-center gap-2 rounded border border-line bg-mist px-3 py-2 text-xs font-semibold text-brand sm:mb-5 sm:text-sm">
+            <Sparkles size={16} className="shrink-0" />
+            <span className="min-w-0 leading-snug">{profile.experience} building Laravel web applications</span>
           </div>
-          <h1 className="headline max-w-3xl text-4xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
+          <h1 className="headline max-w-3xl text-3xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
             <span className="name-gradient">{profile.name}</span>
           </h1>
-          <p className="hero-subtitle mt-4 max-w-2xl text-xl font-semibold text-brand sm:text-2xl">{profile.role}</p>
-          <p className="hero-text mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+          <p className="hero-subtitle mt-3 max-w-2xl text-lg font-semibold text-brand sm:mt-4 sm:text-2xl">{profile.role}</p>
+          <p className="hero-text mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
             Hands-on Laravel developer focused on scalable backend systems, clean REST APIs, payment gateway integrations, and responsive interfaces with React and Tailwind CSS.
           </p>
 
-          <div className="button-row mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="#projects" className="primary-button">
+          <div className="button-row mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row">
+            <a href="#projects" className="primary-button w-full justify-center sm:w-auto">
               View Work
               <ArrowUpRight size={18} />
             </a>
             {readyCv ? (
-              <button type="button" className="secondary-button" onClick={() => downloadCvFile(cv)}>
+              <button type="button" className="secondary-button w-full justify-center sm:w-auto" onClick={() => downloadCvFile(cv)}>
                 <Download size={18} />
                 Download CV
               </button>
             ) : (
-              <a href={profile.github} target="_blank" rel="noreferrer" className="secondary-button">
+              <a href={profile.github} target="_blank" rel="noreferrer" className="secondary-button w-full justify-center sm:w-auto">
                 <Github size={18} />
                 GitHub Profile
               </a>
             )}
           </div>
 
-          <div className="mini-terminal mt-6">
+          <div className="mini-terminal mt-5 w-full sm:mt-6">
             <Terminal size={16} />
             <span>{terminalCommands[commandIndex]}</span>
           </div>
 
-          <div className="mt-8 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 text-sm text-slate-600 sm:mt-8 sm:grid-cols-3">
             <InfoPill icon={MapPin} label={profile.location} />
             <InfoPill icon={Phone} label={profile.phone} />
             <InfoPill icon={Mail} label={profile.email} />
           </div>
         </div>
 
-        <div className="hero-visual hero-stage relative">
+        <div className="hero-visual hero-stage relative min-w-0">
           <div className="profile-panel">
             <div>
               <span className="profile-avatar">WA</span>
@@ -412,11 +431,11 @@ function Hero({ cv }) {
               <span className="h-3 w-3 rounded-full bg-gold"></span>
               <span className="h-3 w-3 rounded-full bg-brand"></span>
             </div>
-            <div className="space-y-4 p-5 font-mono text-sm leading-7 text-slate-200">
-              <p><span className="text-coral">Route</span>::get(<span className="text-emerald-300">'/portfolio'</span>, <span className="text-sky-300">WasifController</span>::class);</p>
+            <div className="space-y-3 overflow-x-auto p-4 font-mono text-xs leading-6 text-slate-200 sm:space-y-4 sm:p-5 sm:text-sm sm:leading-7">
+              <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-coral">Route</span>::get(<span className="text-emerald-300">'/portfolio'</span>, <span className="text-sky-300">WasifController</span>::class);</p>
               <p><span className="text-slate-500">// Core strengths</span></p>
-              <p><span className="text-gold">$skills</span> = [<span className="text-emerald-300">'Laravel'</span>, <span className="text-emerald-300">'REST API'</span>, <span className="text-emerald-300">'MySQL'</span>];</p>
-              <p><span className="text-sky-300">return</span> response()-&gt;json(<span className="text-gold">$cleanCode</span>);<span className="typing-cursor"></span></p>
+              <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-gold">$skills</span> = [<span className="text-emerald-300">'Laravel'</span>, <span className="text-emerald-300">'REST API'</span>, <span className="text-emerald-300">'MySQL'</span>];</p>
+              <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-sky-300">return</span> response()-&gt;json(<span className="text-gold">$cleanCode</span>);<span className="typing-cursor"></span></p>
             </div>
           </div>
 
@@ -810,22 +829,22 @@ function Contact({ cv }) {
           <h2>Need a Laravel developer for your web application?</h2>
           <p>Available for Laravel development, API integration, backend fixes, and responsive frontend work.</p>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-          <a href={`mailto:${profile.email}`} className="light-button">
+        <div className="flex w-full flex-col gap-3 sm:flex-row lg:flex-col">
+          <a href={`mailto:${profile.email}`} className="light-button w-full justify-center lg:min-w-[160px]">
             <Mail size={18} />
             Email Me
           </a>
           {readyCv ? (
-            <button type="button" className="outline-light-button" onClick={() => downloadCvFile(cv)}>
+            <button type="button" className="outline-light-button w-full justify-center lg:min-w-[160px]" onClick={() => downloadCvFile(cv)}>
               <Download size={18} />
               Download CV
             </button>
           ) : null}
-          <button type="button" className="outline-light-button" onClick={copyEmail}>
+          <button type="button" className="outline-light-button w-full justify-center lg:min-w-[160px]" onClick={copyEmail}>
             <ClipboardCopy size={18} />
             {copied ? 'Copied' : 'Copy Email'}
           </button>
-          <a href={profile.github} target="_blank" rel="noreferrer" className="outline-light-button">
+          <a href={profile.github} target="_blank" rel="noreferrer" className="outline-light-button w-full justify-center lg:min-w-[160px]">
             <Github size={18} />
             GitHub
           </a>
