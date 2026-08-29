@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'portfolio_projects_v1';
+const STORAGE_KEY = 'portfolio_projects_v2';
 const AUTH_KEY = 'portfolio_admin_auth_v1';
 const DEFAULT_PASSWORD = 'wasif2026';
 
@@ -54,12 +54,60 @@ export async function loadProjects({ preferLocal = false } = {}) {
   }
 }
 
+export async function loadProjectById(id) {
+  const projects = await loadProjects({ preferLocal: true });
+  return projects.find((item) => item.id === id) || null;
+}
+
 export function downloadProjectsJson(projects) {
   const blob = new Blob([JSON.stringify({ projects }, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
   anchor.download = 'projects.json';
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+export function getProjectsJsonTemplate() {
+  return {
+    projects: [
+      {
+        id: 'project-example-001',
+        name: 'Project title here',
+        type: 'Laravel Application',
+        description: 'Short summary shown on the card.',
+        overview: 'Longer overview for the details page.',
+        role: 'Laravel Developer',
+        tag: 'individual',
+        features: [
+          'Feature one',
+          'Feature two',
+          'Feature three',
+        ],
+        challenges: 'What was hard and how you solved it.',
+        stack: ['Laravel', 'MySQL', 'React'],
+        image: '',
+        liveUrl: 'https://example.com',
+        githubUrl: 'https://github.com/username/repo',
+        featured: true,
+        style: 'showcase',
+        source: 'admin',
+        createdAt: new Date().toISOString(),
+      },
+    ],
+  };
+}
+
+export function downloadProjectsJsonTemplate() {
+  const template = getProjectsJsonTemplate();
+  const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = 'projects.template.json';
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
@@ -77,13 +125,49 @@ export function emptyProject() {
     name: '',
     type: 'Laravel Application',
     description: '',
+    overview: '',
+    role: 'Laravel Developer',
+    tag: 'individual',
+    features: [],
+    challenges: '',
     stack: [],
     image: '',
     liveUrl: '',
     githubUrl: '',
     featured: true,
+    style: 'showcase',
+    source: 'admin',
     createdAt: new Date().toISOString(),
   };
+}
+
+export function projectTagLabel(tag) {
+  return tag === 'team' ? 'Team' : 'Individual';
+}
+
+export const DEFAULT_PROJECT_IDS = ['inv-stock-001', 'payment-gw-002', 'biz-site-003'];
+
+export function isDefaultProject(project) {
+  return project?.source === 'default' || DEFAULT_PROJECT_IDS.includes(project?.id);
+}
+
+export function isShowcaseProject(project) {
+  return !isDefaultProject(project) && (project?.style === 'showcase' || Boolean(project?.image) || project?.source === 'admin');
+}
+
+export function splitProjects(projects) {
+  const list = Array.isArray(projects) ? projects : [];
+  return {
+    defaultProjects: list.filter((project) => isDefaultProject(project)),
+    uploadedProjects: list.filter((project) => !isDefaultProject(project)),
+  };
+}
+
+export function parseLines(text) {
+  return String(text || '')
+    .split(/\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 export function fileToOptimizedDataUrl(file, maxWidth = 900, quality = 0.82) {

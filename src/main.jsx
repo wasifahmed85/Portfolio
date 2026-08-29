@@ -4,11 +4,14 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   ClipboardCopy,
   Code2,
   Cpu,
   Database,
-  ExternalLink,
+  Download,
+  FileText,
   Github,
   GraduationCap,
   Layers3,
@@ -24,7 +27,9 @@ import {
   X,
 } from 'lucide-react';
 import Admin from './Admin';
-import { loadProjects } from './data/projectsStore';
+import ProjectDetail from './ProjectDetail';
+import { downloadCvFile, hasCvFile, loadCv } from './data/cvStore';
+import { loadProjects, projectTagLabel, splitProjects } from './data/projectsStore';
 import './styles.css';
 
 const profile = {
@@ -37,7 +42,7 @@ const profile = {
   experience: '1.8+ Years',
 };
 
-const navItems = ['About', 'Skills', 'Experience', 'Workflow', 'Projects', 'Education', 'Contact'];
+const navItems = ['About', 'Skills', 'Experience', 'Workflow', 'Projects', 'CV', 'Education', 'Contact'];
 
 const highlights = [
   'Laravel web application development',
@@ -161,19 +166,47 @@ function App() {
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
     return <Admin />;
   }
+
+  const projectMatch = pathname.match(/^\/project\/([^/]+)\/?$/);
+  if (projectMatch) {
+    return <ProjectPage projectId={decodeURIComponent(projectMatch[1])} />;
+  }
+
   return <Portfolio />;
+}
+
+function ProjectPage({ projectId }) {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  return (
+    <div className="site-shell min-h-screen text-ink">
+      <AnimatedBackground />
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <main className="relative z-10">
+        <ProjectDetail projectId={projectId} />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 function Portfolio() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
+  const [cv, setCv] = React.useState(null);
   useRevealAnimation(projects);
 
   React.useEffect(() => {
     let alive = true;
     (async () => {
-      const data = await loadProjects({ preferLocal: true });
-      if (alive) setProjects(data);
+      const [projectData, cvData] = await Promise.all([
+        loadProjects({ preferLocal: true }),
+        loadCv({ preferLocal: true }),
+      ]);
+      if (alive) {
+        setProjects(projectData);
+        setCv(cvData);
+      }
     })();
     return () => {
       alive = false;
@@ -185,14 +218,15 @@ function Portfolio() {
       <AnimatedBackground />
       <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <main className="relative z-10">
-        <Hero />
+        <Hero cv={cv} />
         <About />
         <Skills />
         <Experience />
         <WorkflowLab />
         <Projects projects={projects} />
+        <CvSection cv={cv} />
         <Education />
-        <Contact />
+        <Contact cv={cv} />
       </main>
       <Footer />
     </div>
@@ -280,8 +314,9 @@ function Header({ menuOpen, setMenuOpen }) {
   );
 }
 
-function Hero() {
+function Hero({ cv }) {
   const [commandIndex, setCommandIndex] = React.useState(0);
+  const readyCv = hasCvFile(cv);
 
   React.useEffect(() => {
     const timer = window.setInterval(() => {
@@ -312,10 +347,17 @@ function Hero() {
               View Work
               <ArrowUpRight size={18} />
             </a>
-            <a href={profile.github} target="_blank" rel="noreferrer" className="secondary-button">
-              <Github size={18} />
-              GitHub Profile
-            </a>
+            {readyCv ? (
+              <button type="button" className="secondary-button" onClick={() => downloadCvFile(cv)}>
+                <Download size={18} />
+                Download CV
+              </button>
+            ) : (
+              <a href={profile.github} target="_blank" rel="noreferrer" className="secondary-button">
+                <Github size={18} />
+                GitHub Profile
+              </a>
+            )}
           </div>
 
           <div className="mini-terminal mt-6">
@@ -541,60 +583,143 @@ $portfolio->ship(
 }
 
 function Projects({ projects }) {
+  const { defaultProjects, uploadedProjects } = splitProjects(projects);
+
   return (
-    <section id="projects" className="section reveal">
-      <div className="section-heading">
-        <p>Projects</p>
-        <h2>Selected work managed from the admin panel and stored in JSON.</h2>
-      </div>
-      {projects.length === 0 ? (
-        <div className="panel">
-          <p className="!mt-0">No projects yet. Open the admin panel to upload your first project.</p>
-          <a href="/admin" className="primary-button mt-5 inline-flex">
-            Open Admin
-            <ArrowUpRight size={18} />
-          </a>
+    <>
+      <section id="projects" className="section reveal">
+        <div className="section-heading">
+          <p>Projects</p>
+          <h2>Portfolio-ready examples shaped from your CV strengths.</h2>
         </div>
-      ) : (
         <div className="stagger-list grid gap-5 lg:grid-cols-3">
-          {projects.map((project) => (
-            <article key={project.id || project.name} className="project-card">
-              {project.image ? (
-                <div className="project-media">
-                  <img src={project.image} alt={project.name} loading="lazy" />
-                </div>
-              ) : (
-                <Layers3 className="text-coral" size={26} />
-              )}
-              <p className={`text-sm font-bold uppercase text-brand ${project.image ? 'mt-4' : 'mt-4'}`}>{project.type}</p>
-              <h3>{project.name}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{project.description}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {(project.stack || []).map((item) => (
-                  <span key={item} className="stack-chip">{item}</span>
-                ))}
-              </div>
-              {(project.liveUrl || project.githubUrl) && (
-                <div className="project-links mt-5 flex flex-wrap gap-2">
-                  {project.liveUrl ? (
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="project-link">
-                      <ExternalLink size={14} />
-                      Live
-                    </a>
-                  ) : null}
-                  {project.githubUrl ? (
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer" className="project-link">
-                      <Github size={14} />
-                      Code
-                    </a>
-                  ) : null}
-                </div>
-              )}
-            </article>
+          {defaultProjects.map((project) => (
+            <ClassicProjectCard key={project.id || project.name} project={project} />
           ))}
         </div>
-      )}
+      </section>
+
+      {uploadedProjects.length ? <UploadedProjectsSection projects={uploadedProjects} /> : null}
+    </>
+  );
+}
+
+const UPLOADED_PAGE_SIZE = 10;
+
+function UploadedProjectsSection({ projects }) {
+  const [page, setPage] = React.useState(1);
+  const totalPages = Math.max(1, Math.ceil(projects.length / UPLOADED_PAGE_SIZE));
+  const showPagination = projects.length > UPLOADED_PAGE_SIZE;
+
+  React.useEffect(() => {
+    setPage((current) => Math.min(current, totalPages));
+  }, [totalPages]);
+
+  const pageItems = projects.slice((page - 1) * UPLOADED_PAGE_SIZE, page * UPLOADED_PAGE_SIZE);
+
+  const goToPage = (nextPage) => {
+    const safePage = Math.min(Math.max(1, nextPage), totalPages);
+    setPage(safePage);
+    const section = document.getElementById('uploaded-projects');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <section id="uploaded-projects" className="section section-band reveal">
+      <div className="section-heading">
+        <p>Selected work</p>
+        <h2>Built projects with clear features, demos, and case details.</h2>
+      </div>
+      <div className="stagger-list grid gap-5 lg:grid-cols-3">
+        {pageItems.map((project) => (
+          <ClassicProjectCard key={project.id || project.name} project={project} showTag />
+        ))}
+      </div>
+      {showPagination ? (
+        <div className="projects-pagination">
+          <button
+            type="button"
+            className="pagination-btn"
+            onClick={() => goToPage(page - 1)}
+            disabled={page === 1}
+            aria-label="Previous page"
+          >
+            <ChevronLeft size={16} />
+            Prev
+          </button>
+          <div className="pagination-pages">
+            {Array.from({ length: totalPages }, (_, index) => {
+              const pageNumber = index + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  type="button"
+                  className={`pagination-page ${page === pageNumber ? 'active' : ''}`}
+                  onClick={() => goToPage(pageNumber)}
+                  aria-current={page === pageNumber ? 'page' : undefined}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="pagination-btn"
+            onClick={() => goToPage(page + 1)}
+            disabled={page === totalPages}
+            aria-label="Next page"
+          >
+            Next
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      ) : null}
     </section>
+  );
+}
+
+function ClassicProjectCard({ project, showTag = false }) {
+  const detailHref = `/project/${project.id}`;
+
+  return (
+    <article className={`project-card ${showTag ? 'project-card-with-preview' : ''}`}>
+      {showTag ? (
+        <a href={detailHref} className="project-card-preview">
+          {project.image ? (
+            <img src={project.image} alt="" loading="lazy" />
+          ) : (
+            <span className="project-card-preview-empty">
+              <Layers3 size={28} />
+              <span>No image</span>
+            </span>
+          )}
+          <span className={`project-tag preview-tag tag-${project.tag === 'team' ? 'team' : 'individual'}`}>
+            {projectTagLabel(project.tag)}
+          </span>
+        </a>
+      ) : (
+        <div className="project-card-top">
+          <Layers3 className="text-coral" size={26} />
+        </div>
+      )}
+      <p className="mt-4 text-sm font-bold uppercase text-brand">{project.type}</p>
+      <h3>
+        <a href={detailHref} className="project-title-link">
+          {project.name}
+        </a>
+      </h3>
+      <p className="mt-3 text-sm leading-6 text-slate-600">{project.description}</p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {(project.stack || []).map((item) => (
+          <span key={item} className="stack-chip">{item}</span>
+        ))}
+      </div>
+      <a href={detailHref} className="project-link mt-5 inline-flex">
+        View details
+        <ArrowUpRight size={14} />
+      </a>
+    </article>
   );
 }
 
@@ -621,8 +746,37 @@ function Education() {
   );
 }
 
-function Contact() {
+function CvSection({ cv }) {
+  if (!hasCvFile(cv)) return null;
+
+  return (
+    <section id="cv" className="section reveal">
+      <div className="cv-panel">
+        <div className="cv-panel-copy">
+          <span className="cv-panel-icon">
+            <FileText size={24} />
+          </span>
+          <div>
+            <p>Curriculum Vitae</p>
+            <h2>{cv.label || 'Wasif Ahmed CV'}</h2>
+            <p className="cv-meta">
+              {cv.fileName}
+              {cv.updatedAt ? ` · Updated ${new Date(cv.updatedAt).toLocaleDateString()}` : ''}
+            </p>
+          </div>
+        </div>
+        <button type="button" className="primary-button" onClick={() => downloadCvFile(cv)}>
+          <Download size={18} />
+          Download CV
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function Contact({ cv }) {
   const [copied, setCopied] = React.useState(false);
+  const readyCv = hasCvFile(cv);
 
   const copyEmail = async () => {
     try {
@@ -647,6 +801,12 @@ function Contact() {
             <Mail size={18} />
             Email Me
           </a>
+          {readyCv ? (
+            <button type="button" className="outline-light-button" onClick={() => downloadCvFile(cv)}>
+              <Download size={18} />
+              Download CV
+            </button>
+          ) : null}
           <button type="button" className="outline-light-button" onClick={copyEmail}>
             <ClipboardCopy size={18} />
             {copied ? 'Copied' : 'Copy Email'}

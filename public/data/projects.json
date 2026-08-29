@@ -5,11 +5,30 @@
       "name": "Inventory & Stock Management",
       "type": "Laravel Application",
       "description": "Role-based inventory workflow with product, stock, supplier, and reporting modules.",
-      "stack": ["Laravel", "MySQL", "Eloquent", "Bootstrap"],
+      "overview": "A practical inventory system built for day-to-day stock control. Admins and staff can manage products, track stock movement, handle suppliers, and generate useful reports without messy spreadsheets.",
+      "role": "Laravel Developer",
+      "features": [
+        "Role-based access for admin and staff users",
+        "Product create, update, and category management",
+        "Stock in / stock out tracking with history",
+        "Supplier records and purchase workflow",
+        "Search, filters, and reporting views",
+        "MySQL schema with Eloquent relationships"
+      ],
+      "challenges": "Kept stock updates consistent across modules and made role permissions clear so staff only see what they need.",
+      "stack": [
+        "Laravel",
+        "MySQL",
+        "Eloquent",
+        "Bootstrap"
+      ],
       "image": "",
       "liveUrl": "",
       "githubUrl": "",
       "featured": true,
+      "tag": "individual",
+      "style": "classic",
+      "source": "default",
       "createdAt": "2025-02-01T00:00:00.000Z"
     },
     {
@@ -17,11 +36,30 @@
       "name": "Payment Gateway Integration",
       "type": "Backend Integration",
       "description": "Secure checkout integration with transaction handling, validation, and admin visibility.",
-      "stack": ["PHP", "Laravel", "REST API", "MySQL"],
+      "overview": "Backend payment flow that connects checkout requests to a payment gateway, validates responses, stores transaction status, and gives admins a clear view of successful and failed payments.",
+      "role": "Backend Developer",
+      "features": [
+        "Secure checkout request and callback handling",
+        "Transaction validation and status updates",
+        "Failed payment and retry-friendly logging",
+        "Admin visibility for payment history",
+        "REST API endpoints for frontend checkout",
+        "Input sanitization and server-side checks"
+      ],
+      "challenges": "Focused on reliable callback handling and clear transaction states so money movement stays auditable.",
+      "stack": [
+        "PHP",
+        "Laravel",
+        "REST API",
+        "MySQL"
+      ],
       "image": "",
       "liveUrl": "",
       "githubUrl": "",
       "featured": true,
+      "tag": "individual",
+      "style": "classic",
+      "source": "default",
       "createdAt": "2025-03-01T00:00:00.000Z"
     },
     {
@@ -29,11 +67,29 @@
       "name": "Responsive Business Website",
       "type": "Frontend Build",
       "description": "Mobile-first website with clean sections, reusable UI blocks, and browser-compatible styling.",
-      "stack": ["React", "Tailwind CSS", "JavaScript"],
+      "overview": "A responsive business website designed mobile-first. Clean section layout, reusable UI pieces, and consistent styling across modern browsers.",
+      "role": "Frontend Developer",
+      "features": [
+        "Mobile-first responsive layout",
+        "Reusable section and UI blocks",
+        "Clean typography and spacing system",
+        "Cross-browser compatible styling",
+        "Smooth section navigation",
+        "Lightweight React + Tailwind structure"
+      ],
+      "challenges": "Balanced visual polish with simple reusable components so the site stays fast and easy to extend.",
+      "stack": [
+        "React",
+        "Tailwind CSS",
+        "JavaScript"
+      ],
       "image": "",
       "liveUrl": "",
       "githubUrl": "",
       "featured": false,
+      "tag": "individual",
+      "style": "classic",
+      "source": "default",
       "createdAt": "2025-04-01T00:00:00.000Z"
     }
   ]

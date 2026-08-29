@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "id": "project-example-001",
+      "name": "Project title here",
+      "type": "Laravel Application",
+      "description": "Short summary shown on the card.",
+      "overview": "Longer overview for the details page.",
+      "role": "Laravel Developer",
+      "tag": "individual",
+      "features": [
+        "Feature one",
+        "Feature two",
+        "Feature three"
+      ],
+      "challenges": "What was hard and how you solved it.",
+      "stack": [
+        "Laravel",
+        "MySQL",
+        "React"
+      ],
+      "image": "",
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/username/repo",
+      "featured": true,
+      "style": "showcase",
+      "source": "admin",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    }
+  ]
+}
