@@ -1,6 +1,33 @@
 {
   "projects": [
     {
+      "id": "maktech-makgadgets",
+      "name": "MAKgadgets",
+      "type": "Web Application",
+      "description": "Full-featured electronics e-commerce platform with admin tools for products, inventory, orders, and promotions.",
+      "overview": "MAKgadgets is a full-featured electronics e-commerce platform built to manage products, orders, inventory, customers, and promotional content from a centralized admin panel. The project focuses on creating a smooth shopping experience for customers while giving the internal team practical tools for catalog management, bulk product updates, order processing, and day-to-day store operations.",
+      "role": "Laravel Developer",
+      "tag": "individual",
+      "features": [
+        "Customer-facing electronics storefront",
+        "Centralized admin panel for catalog and operations",
+        "Product, inventory, and order management",
+        "Bulk product updates and media handling",
+        "Pricing, stock tracking, and category organization",
+        "Promotional content management",
+        "Laravel + Inertia application architecture"
+      ],
+      "challenges": "Built a system that could handle a large, frequently changing product catalog without slowing admin work—simplifying uploads, image management, pricing, stock tracking, and categories while keeping the storefront fast and reliable.",
+      "stack": ["Laravel", "React", "Vue.js", "Tailwind CSS", "MySQL", "Inertia", "HTML", "CSS", "PHP", "JavaScript"],
+      "image": "https://api.maktechlaravel.cloud/storage/portfolio/CDsW2nORRrZO5ghlHD9mT684ZUNZp7NNhT1ossnN.png",
+      "liveUrl": "https://maktechlaravel.cloud/makgadgets",
+      "githubUrl": "",
+      "featured": true,
+      "style": "showcase",
+      "source": "admin",
+      "createdAt": "2026-03-15T00:00:00.000Z"
+    },
+    {
       "id": "maktech-mikhail-holdings",
       "name": "MIKHAIL HOLDINGS LTD",
       "type": "Web Application",
