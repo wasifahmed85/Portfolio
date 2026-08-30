@@ -45,7 +45,7 @@
       "description": "Corporate website for a diversified development company across real estate, manufacturing, R&D, and retail.",
       "overview": "Mikhail Holdings is a diversified development company focused on creating opportunities across commercial, residential, and industrial sectors. With a business structure spanning real estate, manufacturing, research and development, and retail/consumer development, the website serves as a central platform for communicating the company’s diverse capabilities, vision, and areas of expertise.",
       "role": "Laravel Developer",
-      "tag": "team",
+      "tag": "individual",
       "features": [
         "Multi-division company presentation in one cohesive site",
         "Clear navigation across business sectors",
@@ -74,7 +74,7 @@
       "description": "UK-focused online will-writing platform that makes creating a will simple, trustworthy, and accessible.",
       "overview": "Online Will Write is a UK-focused online will-writing service designed to make creating a will more accessible, convenient, and straightforward. The platform provides users with a simple digital experience for getting started with their will, helping remove the complexity often associated with traditional will-writing services.",
       "role": "Laravel Developer",
-      "tag": "team",
+      "tag": "individual",
       "features": [
         "Guided digital will-writing journey",
         "Power of attorney related form flows",
@@ -110,7 +110,7 @@
       "description": "Service website for a mobile oil-change business that brings vehicle maintenance to the customer.",
       "overview": "Mobile Lube is a convenient mobile oil change service designed to bring professional vehicle maintenance directly to customers. The website communicates the convenience of getting an oil change without visiting a traditional service center, helping customers save time while keeping their vehicles properly maintained.",
       "role": "Laravel Developer",
-      "tag": "team",
+      "tag": "individual",
       "features": [
         "Clear service value proposition and CTA flow",
         "Laravel + Inertia web application",
@@ -216,7 +216,7 @@
       "description": "Personal academic site for an EPFL robotics researcher showcasing research, projects, and publications.",
       "overview": "Simon Jeger is a robotics researcher and doctoral assistant at EPFL’s Laboratory of Intelligent Systems, working at the intersection of robotics, autonomous systems, and aerial vehicles. His personal website provides a focused digital space to present his research, projects, publications, and work in intelligent aerial robotics.",
       "role": "Laravel Developer",
-      "tag": "team",
+      "tag": "individual",
       "features": [
         "Research and publication presentation",
         "Project showcase for robotics work",

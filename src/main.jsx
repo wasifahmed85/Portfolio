@@ -30,6 +30,7 @@ import Admin from './Admin';
 import ProjectDetail from './ProjectDetail';
 import { downloadCvFile, hasCvFile, loadCv } from './data/cvStore';
 import { loadProjects, projectTagLabel, splitProjects } from './data/projectsStore';
+import { FadeUp, HoverLift, MotionProvider, Reveal, Stagger, StaggerItem } from './motion';
 import './styles.css';
 
 const profile = {
@@ -194,7 +195,6 @@ function Portfolio() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
   const [cv, setCv] = React.useState(null);
-  useRevealAnimation(projects);
 
   React.useEffect(() => {
     let alive = true;
@@ -234,49 +234,58 @@ function Portfolio() {
 }
 
 function AnimatedBackground() {
+  const rootRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    const syncPause = () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      root.classList.toggle('is-paused', document.hidden || reduce);
+    };
+
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    syncPause();
+    document.addEventListener('visibilitychange', syncPause);
+    media.addEventListener('change', syncPause);
+    return () => {
+      document.removeEventListener('visibilitychange', syncPause);
+      media.removeEventListener('change', syncPause);
+    };
+  }, []);
+
   return (
-    <div className="motion-bg" aria-hidden="true">
+    <div className="motion-bg" aria-hidden="true" ref={rootRef}>
       <span className="motion-orb one" />
       <span className="motion-orb two" />
       <span className="motion-orb three" />
-      <img src="/animated-bg.svg" alt="" />
+      <img
+        src="/animated-bg.svg"
+        alt=""
+        decoding="async"
+        fetchPriority="low"
+        width="1200"
+        height="800"
+      />
     </div>
   );
-}
-
-function useRevealAnimation(deps) {
-  React.useEffect(() => {
-    const targets = document.querySelectorAll('.reveal, .stagger-list > *');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) {
-      targets.forEach((target) => target.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.14, rootMargin: '0px 0px -70px 0px' },
-    );
-
-    targets.forEach((target) => observer.observe(target));
-
-    return () => observer.disconnect();
-  }, [deps]);
 }
 
 function Header({ menuOpen, setMenuOpen }) {
   const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 18);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const next = window.scrollY > 18;
+        setScrolled((prev) => (prev === next ? prev : next));
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -298,7 +307,7 @@ function Header({ menuOpen, setMenuOpen }) {
   }, [menuOpen]);
 
   return (
-    <header className={`site-header sticky top-0 z-40 border-b border-white/70 bg-white/80 backdrop-blur-xl ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`site-header sticky top-0 z-40 border-b border-white/70 bg-white/95 ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4">
         <a href="#home" className="flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setMenuOpen(false)}>
           <span className="brand-mark grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand text-sm font-bold text-white sm:h-11 sm:w-11 sm:text-base">WA</span>
@@ -327,7 +336,7 @@ function Header({ menuOpen, setMenuOpen }) {
       </div>
 
       {menuOpen && (
-        <div className="mobile-menu border-t border-line bg-white/95 px-4 py-4 backdrop-blur-xl lg:hidden">
+        <div className="mobile-menu border-t border-line bg-white px-4 py-4 lg:hidden">
           <nav className="mx-auto grid max-w-6xl gap-1">
             {navItems.map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-mist" onClick={() => setMenuOpen(false)}>
@@ -352,7 +361,7 @@ function Hero({ cv }) {
   React.useEffect(() => {
     const timer = window.setInterval(() => {
       setCommandIndex((value) => (value + 1) % terminalCommands.length);
-    }, 2400);
+    }, 4000);
 
     return () => window.clearInterval(timer);
   }, []);
@@ -360,20 +369,20 @@ function Hero({ cv }) {
   return (
     <section id="home" className="hero-grid animated-grid hero-modern border-b border-line">
       <div className="mx-auto grid min-h-0 max-w-6xl items-start gap-6 px-4 py-8 sm:gap-8 sm:px-5 sm:py-12 lg:min-h-[calc(100vh-76px)] lg:items-center lg:grid-cols-[1.06fr_0.94fr] lg:gap-10 lg:py-16">
-        <div className="hero-copy min-w-0">
-          <div className="hero-badge mb-4 inline-flex max-w-full items-center gap-2 rounded border border-line bg-mist px-3 py-2 text-xs font-semibold text-brand sm:mb-5 sm:text-sm">
+        <Stagger className="hero-copy min-w-0" delay={0.05} immediate>
+          <StaggerItem className="hero-badge mb-4 inline-flex max-w-full items-center gap-2 rounded border border-line bg-mist px-3 py-2 text-xs font-semibold text-brand sm:mb-5 sm:text-sm">
             <Sparkles size={16} className="shrink-0" />
             <span className="min-w-0 leading-snug">{profile.experience} building Laravel web applications</span>
-          </div>
-          <h1 className="headline max-w-3xl text-3xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
+          </StaggerItem>
+          <StaggerItem as="h1" className="headline max-w-3xl text-3xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
             <span className="name-gradient">{profile.name}</span>
-          </h1>
-          <p className="hero-subtitle mt-3 max-w-2xl text-lg font-semibold text-brand sm:mt-4 sm:text-2xl">{profile.role}</p>
-          <p className="hero-text mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
+          </StaggerItem>
+          <StaggerItem as="p" className="hero-subtitle mt-3 max-w-2xl text-lg font-semibold text-brand sm:mt-4 sm:text-2xl">{profile.role}</StaggerItem>
+          <StaggerItem as="p" className="hero-text mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
             Hands-on Laravel developer focused on scalable backend systems, clean REST APIs, payment gateway integrations, and responsive interfaces with React and Tailwind CSS.
-          </p>
+          </StaggerItem>
 
-          <div className="button-row mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row">
+          <StaggerItem className="button-row mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row">
             <a href="#projects" className="primary-button w-full justify-center sm:w-auto">
               View Work
               <ArrowUpRight size={18} />
@@ -389,21 +398,21 @@ function Hero({ cv }) {
                 GitHub Profile
               </a>
             )}
-          </div>
+          </StaggerItem>
 
-          <div className="mini-terminal mt-5 w-full sm:mt-6">
+          <StaggerItem className="mini-terminal mt-5 w-full sm:mt-6">
             <Terminal size={16} />
             <span>{terminalCommands[commandIndex]}</span>
-          </div>
+          </StaggerItem>
 
-          <div className="mt-6 grid gap-3 text-sm text-slate-600 sm:mt-8 sm:grid-cols-3">
+          <StaggerItem className="mt-6 grid gap-3 text-sm text-slate-600 sm:mt-8 sm:grid-cols-3">
             <InfoPill icon={MapPin} label={profile.location} />
             <InfoPill icon={Phone} label={profile.phone} />
             <InfoPill icon={Mail} label={profile.email} />
-          </div>
-        </div>
+          </StaggerItem>
+        </Stagger>
 
-        <div className="hero-visual hero-stage relative min-w-0">
+        <FadeUp className="hero-visual hero-stage relative min-w-0" delay={0.2}>
           <div className="profile-panel">
             <div>
               <span className="profile-avatar">WA</span>
@@ -443,7 +452,7 @@ function Hero({ cv }) {
             <Metric value="1.8+" label="Years Experience" />
             <Metric value="API" label="Integration Focus" />
           </div>
-        </div>
+        </FadeUp>
       </div>
     </section>
   );
@@ -451,7 +460,7 @@ function Hero({ cv }) {
 
 function About() {
   return (
-    <section id="about" className="section section-band reveal">
+    <Reveal as="section" id="about" className="section section-band">
       <div className="section-heading">
         <p>About</p>
         <h2>Reliable Laravel development for real business workflows.</h2>
@@ -464,30 +473,30 @@ function About() {
             I build practical web applications with organized backend logic, responsive UI, and careful database handling. My work experience includes Laravel, payment systems, team coordination, and production-minded feature delivery.
           </p>
         </div>
-        <div className="stagger-list grid gap-3 sm:grid-cols-2">
+        <Stagger className="grid gap-3 sm:grid-cols-2">
           {highlights.map((item) => (
-            <div key={item} className="check-row">
+            <StaggerItem key={item} className="check-row">
               <CheckCircle2 size={18} />
               <span>{item}</span>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
 function Skills() {
   return (
-    <section id="skills" className="section reveal">
+    <Reveal as="section" id="skills" className="section">
       <div className="section-heading">
         <p>Skills</p>
         <h2>Backend depth with frontend awareness.</h2>
       </div>
       <StackOrbit />
-      <div className="stagger-list grid gap-5 md:grid-cols-2">
+      <Stagger className="grid gap-5 md:grid-cols-2">
         {skills.map(({ title, icon: Icon, items }) => (
-          <article key={title} className="panel">
+          <StaggerItem key={title} as="article" className="panel">
             <div className="mb-5 flex items-center gap-3">
               <span className="grid h-11 w-11 place-items-center rounded bg-brand/10 text-brand">
                 <Icon size={22} />
@@ -499,15 +508,15 @@ function Skills() {
                 <span key={item} className="skill-chip">{item}</span>
               ))}
             </div>
-          </article>
+          </StaggerItem>
         ))}
-      </div>
-      <div className="stagger-list mt-5 flex flex-wrap gap-2">
+      </Stagger>
+      <div className="mt-5 flex flex-wrap gap-2">
         {tools.map((tool) => (
           <span key={tool} className="tool-chip">{tool}</span>
         ))}
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -528,14 +537,14 @@ function StackOrbit() {
 
 function Experience() {
   return (
-    <section id="experience" className="section section-band reveal">
+    <Reveal as="section" id="experience" className="section section-band">
       <div className="section-heading">
         <p>Experience</p>
         <h2>Hands-on work across backend delivery and responsive UI.</h2>
       </div>
-      <div className="stagger-list space-y-5">
+      <Stagger className="space-y-5">
         {experiences.map((job) => (
-          <article key={job.company} className="timeline-item">
+          <StaggerItem key={job.company} as="article" className="timeline-item">
             <div className="flex flex-col gap-2 border-b border-line pb-4 md:flex-row md:items-start md:justify-between">
               <div>
                 <h3>{job.title}</h3>
@@ -551,54 +560,71 @@ function Experience() {
                 </li>
               ))}
             </ul>
-          </article>
+          </StaggerItem>
         ))}
-      </div>
-    </section>
+      </Stagger>
+    </Reveal>
   );
 }
 
 function WorkflowLab() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const sectionRef = React.useRef(null);
 
   React.useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveStep((value) => (value + 1) % workflowSteps.length);
-    }, 1800);
+    const node = sectionRef.current;
+    if (!node) return undefined;
 
-    return () => window.clearInterval(timer);
+    let timer = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        window.clearInterval(timer);
+        if (!entry.isIntersecting) return;
+        timer = window.setInterval(() => {
+          setActiveStep((value) => (value + 1) % workflowSteps.length);
+        }, 2800);
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      window.clearInterval(timer);
+    };
   }, []);
 
   return (
-    <section id="workflow" className="section reveal">
-      <div className="section-heading">
-        <p>Workflow</p>
-        <h2>A Laravel request, visualized like a small product system.</h2>
-      </div>
-      <div className="workflow-lab">
-        <div className="workflow-map">
-          {workflowSteps.map((step, index) => (
-            <button
-              key={step.title}
-              type="button"
-              className={`workflow-node ${activeStep === index ? 'active' : ''}`}
-              onClick={() => setActiveStep(index)}
-            >
-              <span className="node-index">0{index + 1}</span>
-              <span>
-                <strong>{step.title}</strong>
-                <small>{step.label}</small>
-              </span>
-            </button>
-          ))}
+    <Reveal as="section" id="workflow" className="section">
+      <div ref={sectionRef}>
+        <div className="section-heading">
+          <p>Workflow</p>
+          <h2>A Laravel request, visualized like a small product system.</h2>
         </div>
-        <div className="workflow-console">
-          <div className="console-top">
-            <Workflow size={18} />
-            <span>request-flow.php</span>
+        <div className="workflow-lab">
+          <div className="workflow-map">
+            {workflowSteps.map((step, index) => (
+              <button
+                key={step.title}
+                type="button"
+                className={`workflow-node ${activeStep === index ? 'active' : ''}`}
+                onClick={() => setActiveStep(index)}
+              >
+                <span className="node-index">0{index + 1}</span>
+                <span>
+                  <strong>{step.title}</strong>
+                  <small>{step.label}</small>
+                </span>
+              </button>
+            ))}
           </div>
-          <pre>
-            <code>{`// ${workflowSteps[activeStep].title}
+          <div className="workflow-console">
+            <div className="console-top">
+              <Workflow size={18} />
+              <span>request-flow.php</span>
+            </div>
+            <pre>
+              <code>{`// ${workflowSteps[activeStep].title}
 ${workflowSteps[activeStep].code}
 
 $portfolio->ship(
@@ -606,10 +632,11 @@ $portfolio->ship(
   responsiveUI: true,
   apiReady: true
 );`}</code>
-          </pre>
+            </pre>
+          </div>
         </div>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -618,17 +645,21 @@ function Projects({ projects }) {
 
   return (
     <>
-      <section id="projects" className="section reveal">
+      <Reveal as="section" id="projects" className="section">
         <div className="section-heading">
           <p>Projects</p>
           <h2>Portfolio-ready examples shaped from your CV strengths.</h2>
         </div>
-        <div className="stagger-list grid gap-5 lg:grid-cols-3">
+        <Stagger className="grid gap-5 lg:grid-cols-3">
           {defaultProjects.map((project) => (
-            <ClassicProjectCard key={project.id || project.name} project={project} />
+            <StaggerItem key={project.id || project.name}>
+              <HoverLift className="h-full">
+                <ClassicProjectCard project={project} />
+              </HoverLift>
+            </StaggerItem>
           ))}
-        </div>
-      </section>
+        </Stagger>
+      </Reveal>
 
       {uploadedProjects.length ? <UploadedProjectsSection projects={uploadedProjects} /> : null}
     </>
@@ -656,16 +687,20 @@ function UploadedProjectsSection({ projects }) {
   };
 
   return (
-    <section id="uploaded-projects" className="section section-band reveal">
+    <Reveal as="section" id="uploaded-projects" className="section section-band">
       <div className="section-heading">
         <p>Selected work</p>
         <h2>Built projects with clear features, demos, and case details.</h2>
       </div>
-      <div className="stagger-list grid gap-5 lg:grid-cols-3">
+      <Stagger className="grid gap-5 lg:grid-cols-3" key={page}>
         {pageItems.map((project) => (
-          <ClassicProjectCard key={project.id || project.name} project={project} showTag />
+          <StaggerItem key={project.id || project.name}>
+            <HoverLift className="h-full">
+              <ClassicProjectCard project={project} showTag />
+            </HoverLift>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
       {showPagination ? (
         <div className="projects-pagination">
           <button
@@ -706,7 +741,7 @@ function UploadedProjectsSection({ projects }) {
           </button>
         </div>
       ) : null}
-    </section>
+    </Reveal>
   );
 }
 
@@ -725,9 +760,6 @@ function ClassicProjectCard({ project, showTag = false }) {
               <span>No image</span>
             </span>
           )}
-          <span className={`project-tag preview-tag tag-${project.tag === 'team' ? 'team' : 'individual'}`}>
-            {projectTagLabel(project.tag)}
-          </span>
         </a>
       ) : (
         <div className="project-card-top">
@@ -751,6 +783,11 @@ function ClassicProjectCard({ project, showTag = false }) {
           View details
           <ArrowUpRight size={14} />
         </a>
+        {showTag ? (
+          <span className={`project-tag tag-${project.tag === 'team' ? 'team' : 'individual'}`}>
+            {projectTagLabel(project.tag)}
+          </span>
+        ) : null}
       </div>
     </article>
   );
@@ -758,24 +795,24 @@ function ClassicProjectCard({ project, showTag = false }) {
 
 function Education() {
   return (
-    <section id="education" className="section section-band reveal">
+    <Reveal as="section" id="education" className="section section-band">
       <div className="section-heading">
         <p>Education</p>
         <h2>Academic foundation in computer science.</h2>
       </div>
-      <div className="stagger-list grid gap-4">
+      <Stagger className="grid gap-4">
         {education.map((item) => (
-          <article key={item.school} className="education-row">
+          <StaggerItem key={item.school} as="article" className="education-row">
             <GraduationCap className="text-brand" size={24} />
             <div>
               <h3>{item.school}</h3>
               <p className="text-sm font-semibold text-slate-700">{item.detail}</p>
               <p className="mt-1 text-sm text-slate-500">{item.meta}</p>
             </div>
-          </article>
+          </StaggerItem>
         ))}
-      </div>
-    </section>
+      </Stagger>
+    </Reveal>
   );
 }
 
@@ -783,7 +820,7 @@ function CvSection({ cv }) {
   if (!hasCvFile(cv)) return null;
 
   return (
-    <section id="cv" className="section reveal">
+    <Reveal as="section" id="cv" className="section">
       <div className="cv-panel">
         <div className="cv-panel-copy">
           <span className="cv-panel-icon">
@@ -803,7 +840,7 @@ function CvSection({ cv }) {
           Download CV
         </button>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -822,7 +859,7 @@ function Contact({ cv }) {
   };
 
   return (
-    <section id="contact" className="section reveal pb-16">
+    <Reveal as="section" id="contact" className="section pb-16">
       <div className="contact-band">
         <div>
           <p className="text-sm font-bold uppercase text-emerald-100">Contact</p>
@@ -850,13 +887,13 @@ function Contact({ cv }) {
           </a>
         </div>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
 function Footer() {
   return (
-    <footer className="relative z-10 border-t border-line bg-white/80 px-5 py-6 text-center text-sm text-slate-500 backdrop-blur-md">
+    <footer className="relative z-10 border-t border-line bg-white px-5 py-6 text-center text-sm text-slate-500">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 sm:flex-row sm:text-left">
         <p>Copyright {new Date().getFullYear()} Wasif Ahmed. Built with React, Tailwind CSS, and Laravel-minded care.</p>
         <a href="/admin" className="font-semibold text-brand hover:underline">
@@ -887,4 +924,8 @@ function InfoPill({ icon: Icon, label }) {
 
 export default App;
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')).render(
+  <MotionProvider>
+    <App />
+  </MotionProvider>,
+);

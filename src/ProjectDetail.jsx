@@ -10,6 +10,7 @@ import {
   UserRound,
 } from 'lucide-react';
 import { loadProjectById, loadProjects, isShowcaseProject, projectTagLabel } from './data/projectsStore';
+import { FadeUp, Reveal, Stagger, StaggerItem } from './motion';
 
 export default function ProjectDetail({ projectId }) {
   const [project, setProject] = React.useState(null);
@@ -62,17 +63,17 @@ export default function ProjectDetail({ projectId }) {
 
   return (
     <div className="detail-shell">
-      <div className="detail-top">
+      <FadeUp className="detail-top">
         <a href="/#projects" className="detail-back">
           <ArrowLeft size={16} />
           All projects
         </a>
-      </div>
+      </FadeUp>
 
-      <section className={`detail-hero ${showcase ? 'is-showcase' : 'is-classic'}`}>
+      <FadeUp as="section" className={`detail-hero ${showcase ? 'is-showcase' : 'is-classic'}`} delay={0.06}>
         {project.image ? (
           <div className="detail-hero-media">
-            <img src={project.image} alt={project.name} />
+            <img src={project.image} alt={project.name} decoding="async" />
           </div>
         ) : (
           <div className="detail-hero-fallback">
@@ -124,9 +125,9 @@ export default function ProjectDetail({ projectId }) {
             ) : null}
           </div>
         </div>
-      </section>
+      </FadeUp>
 
-      <section className="detail-grid">
+      <Reveal as="section" className="detail-grid" delay={0.08}>
         <article className="detail-panel">
           <h2>Overview</h2>
           <p>{project.overview || project.description}</p>
@@ -153,27 +154,27 @@ export default function ProjectDetail({ projectId }) {
             <p>Feature list will appear here once added from the admin panel.</p>
           )}
         </article>
-      </section>
+      </Reveal>
 
       {related.length ? (
-        <section className="detail-related">
+        <Reveal as="section" className="detail-related" delay={0.04}>
           <div className="section-heading">
             <p>More work</p>
             <h2>Other projects</h2>
           </div>
-          <div className="detail-related-grid">
+          <Stagger className="detail-related-grid">
             {related.map((item) => (
-              <a key={item.id} href={`/project/${item.id}`} className="detail-related-card">
+              <StaggerItem key={item.id} as="a" href={`/project/${item.id}`} className="detail-related-card">
                 <strong>{item.name}</strong>
                 <span>{item.type}</span>
                 <em>
                   View details
                   <ArrowUpRight size={14} />
                 </em>
-              </a>
+              </StaggerItem>
             ))}
-          </div>
-        </section>
+          </Stagger>
+        </Reveal>
       ) : null}
     </div>
   );

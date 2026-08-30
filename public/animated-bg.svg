@@ -1,71 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="lineA" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f5e59" stop-opacity="0.38"/>
-      <stop offset="0.55" stop-color="#38bdf8" stop-opacity="0.22"/>
-      <stop offset="1" stop-color="#d8573d" stop-opacity="0.30"/>
+      <stop offset="0" stop-color="#0f5e59" stop-opacity="0.42"/>
+      <stop offset="0.55" stop-color="#38bdf8" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#d8573d" stop-opacity="0.32"/>
     </linearGradient>
     <linearGradient id="lineB" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#c8942c" stop-opacity="0.24"/>
-      <stop offset="1" stop-color="#0f5e59" stop-opacity="0.30"/>
+      <stop offset="0" stop-color="#c8942c" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#0f5e59" stop-opacity="0.28"/>
     </linearGradient>
-    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#182033" stroke-opacity="0.08" stroke-width="1"/>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#182033" stroke-opacity="0.07" stroke-width="1"/>
     </pattern>
-    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
 
-  <rect width="1600" height="1000" fill="transparent"/>
-  <rect width="1600" height="1000" fill="url(#grid)">
-    <animateTransform attributeName="transform" type="translate" values="0 0;80 80;0 0" dur="28s" repeatCount="indefinite"/>
-  </rect>
+  <rect width="1200" height="800" fill="url(#grid)"/>
 
-  <g opacity="0.58" filter="url(#softGlow)">
-    <path d="M-100 240 C220 120 360 420 620 310 C880 200 1030 95 1760 170" fill="none" stroke="url(#lineA)" stroke-width="3">
-      <animate attributeName="d" dur="14s" repeatCount="indefinite"
-        values="M-100 240 C220 120 360 420 620 310 C880 200 1030 95 1760 170;
-                M-100 280 C210 210 410 290 640 360 C900 445 1080 120 1760 230;
-                M-100 240 C220 120 360 420 620 310 C880 200 1030 95 1760 170"/>
-    </path>
-    <path d="M-130 720 C250 550 440 760 710 620 C980 480 1160 700 1730 560" fill="none" stroke="url(#lineB)" stroke-width="3">
-      <animate attributeName="d" dur="16s" repeatCount="indefinite"
-        values="M-130 720 C250 550 440 760 710 620 C980 480 1160 700 1730 560;
-                M-130 650 C260 780 480 560 760 650 C1030 740 1210 500 1730 620;
-                M-130 720 C250 550 440 760 710 620 C980 480 1160 700 1730 560"/>
-    </path>
+  <g opacity="0.55" fill="none" stroke-width="2.5" stroke-linecap="round">
+    <path d="M-40 190 C180 90 320 340 520 250 C760 150 900 80 1240 140" stroke="url(#lineA)"/>
+    <path d="M-60 580 C200 440 360 620 580 500 C820 360 980 560 1240 450" stroke="url(#lineB)"/>
   </g>
 
-  <g font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" fill="#0f5e59" opacity="0.20">
-    <text x="108" y="166">Route::get('/api')</text>
-    <text x="1118" y="284">return response()</text>
-    <text x="264" y="842">Laravel</text>
-    <text x="1040" y="796">MySQL</text>
-    <text x="742" y="152">REST API</text>
-    <animateTransform attributeName="transform" type="translate" values="0 0;0 -28;0 0" dur="10s" repeatCount="indefinite"/>
+  <g font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700" fill="#0f5e59" opacity="0.16">
+    <text x="80" y="140">Route::get('/api')</text>
+    <text x="820" y="230">return response()</text>
+    <text x="200" y="680">Laravel</text>
+    <text x="780" y="640">MySQL</text>
+    <text x="540" y="120">REST API</text>
   </g>
 
-  <g opacity="0.38">
-    <rect x="190" y="325" width="180" height="68" rx="8" fill="#ffffff" stroke="#0f5e59" stroke-opacity="0.28">
-      <animateTransform attributeName="transform" type="translate" values="0 0;34 -20;0 0" dur="12s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="1210" y="460" width="205" height="74" rx="8" fill="#ffffff" stroke="#d8573d" stroke-opacity="0.24">
-      <animateTransform attributeName="transform" type="translate" values="0 0;-42 24;0 0" dur="13s" repeatCount="indefinite"/>
-    </rect>
-    <rect x="780" y="690" width="210" height="72" rx="8" fill="#ffffff" stroke="#c8942c" stroke-opacity="0.26">
-      <animateTransform attributeName="transform" type="translate" values="0 0;24 30;0 0" dur="15s" repeatCount="indefinite"/>
-    </rect>
+  <g opacity="0.32">
+    <rect x="140" y="260" width="150" height="56" rx="8" fill="#ffffff" stroke="#0f5e59" stroke-opacity="0.26"/>
+    <rect x="900" y="360" width="170" height="60" rx="8" fill="#ffffff" stroke="#d8573d" stroke-opacity="0.22"/>
+    <rect x="560" y="560" width="170" height="58" rx="8" fill="#ffffff" stroke="#c8942c" stroke-opacity="0.24"/>
   </g>
 
-  <g fill="none" stroke="#182033" stroke-opacity="0.12" stroke-width="2">
-    <path d="M170 525 h180 v90 h-180 z"/>
-    <path d="M1165 170 h240 v105 h-240 z"/>
-    <path d="M555 520 h245 v125 h-245 z"/>
-    <animateTransform attributeName="transform" type="translate" values="0 0;0 22;0 0" dur="18s" repeatCount="indefinite"/>
+  <g fill="none" stroke="#182033" stroke-opacity="0.1" stroke-width="1.5">
+    <rect x="120" y="420" width="140" height="70" rx="4"/>
+    <rect x="860" y="140" width="180" height="80" rx="4"/>
+    <rect x="420" y="420" width="190" height="95" rx="4"/>
   </g>
 </svg>
