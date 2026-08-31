@@ -2,11 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowUpRight,
+  Bot,
   BriefcaseBusiness,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
   ClipboardCopy,
+  Cloud,
   Code2,
   Cpu,
   Database,
@@ -19,6 +21,7 @@ import {
   MapPin,
   Menu,
   Phone,
+  Search,
   Server,
   ShieldCheck,
   Sparkles,
@@ -35,7 +38,7 @@ import './styles.css';
 
 const profile = {
   name: 'Wasif Ahmed',
-  role: 'Laravel Developer',
+  role: 'Laravel & Full-Stack Developer',
   location: 'Dhaka, Bangladesh',
   phone: '+880 1314 118535',
   email: 'dev.wasifahmed@gmail.com',
@@ -46,64 +49,155 @@ const profile = {
 const navItems = ['About', 'Skills', 'Experience', 'Workflow', 'Projects', 'CV', 'Education', 'Contact'];
 
 const highlights = [
-  'Laravel web application development',
-  'REST API development and integration',
-  'Payment gateway implementation',
-  'Responsive frontend with React and Tailwind CSS',
+  'Scalable Laravel applications with clean architecture',
+  'React, Next.js & Inertia.js full-stack delivery',
+  'Real-time systems, queues, jobs & event-driven workflows',
+  'Docker, CI/CD & cloud-ready deployment pipelines',
+  'Technical SEO, GA4 & admin-controlled metadata',
+  'AI chatbot integrations with OpenAI, Claude & Gemini',
 ];
 
 const skills = [
   {
-    title: 'Frontend',
-    icon: Code2,
-    items: ['HTML & CSS', 'Tailwind CSS', 'Bootstrap', 'JavaScript', 'React (Basic)', 'Responsive Design'],
-  },
-  {
-    title: 'Backend',
+    title: 'Backend Development',
     icon: Server,
-    items: ['PHP', 'Laravel Framework', 'REST API Development', 'Payment Gateway Integration', 'Authentication', 'Authorization'],
+    items: [
+      'Laravel 13.x',
+      'PHP 8.4+',
+      'Livewire 3.x / 4.x',
+      'Laravel Octane',
+      'Sanctum & Passport',
+      'REST API',
+      'WebSocket & Real-Time',
+      'Events, Queues & Jobs',
+      'Inertia, Horizon & Telescope',
+    ],
   },
   {
-    title: 'Database',
+    title: 'Frontend Development',
+    icon: Code2,
+    items: [
+      'React 19.x',
+      'Next.js 15.x / 16.x',
+      'React + Inertia.js 3.x',
+      'TypeScript 5.x',
+      'JavaScript ES2025+',
+      'HTML5 & CSS3',
+    ],
+  },
+  {
+    title: 'UI Engineering & Animation',
+    icon: Layers3,
+    items: [
+      'Tailwind CSS 4.x',
+      'Bootstrap 5.x',
+      'GSAP 3.x',
+      'Framer Motion / Magic UI',
+      'Shadcn/UI',
+      'Responsive & Cross-Browser UI',
+    ],
+  },
+  {
+    title: 'Database & Storage',
     icon: Database,
-    items: ['MySQL', 'ORM / Eloquent', 'Query Optimization'],
+    items: [
+      'PostgreSQL 18.x',
+      'MySQL 8.x',
+      'Redis 8.x',
+      'Database Architecture',
+      'Indexing & Migrations',
+      'Query Optimization',
+    ],
   },
   {
-    title: 'Leadership',
+    title: 'DevOps & Cloud',
+    icon: Cloud,
+    items: [
+      'Docker & Docker Compose',
+      'Coolify',
+      'FrankenPHP + Octane',
+      'Nginx / Apache',
+      'Linux (Ubuntu)',
+      'CI/CD Automation',
+      'Git, GitHub & GitLab',
+      'AWS, DigitalOcean, Hetzner & Cloudflare',
+    ],
+  },
+  {
+    title: 'SEO & Digital Analytics',
+    icon: Search,
+    items: [
+      'Technical SEO',
+      'XML Sitemap Management',
+      'Google Search Console',
+      'Google Analytics 4',
+      'Dynamic SEO Admin Panel',
+      'Core Web Vitals Optimization',
+    ],
+  },
+  {
+    title: 'CMS & AI Integrations',
+    icon: Bot,
+    items: [
+      'WordPress Plugin Development',
+      'OpenAI API',
+      'Claude API',
+      'Google Gemini API',
+      'Third-party API Integration',
+    ],
+  },
+  {
+    title: 'Development Approach',
     icon: ShieldCheck,
-    items: ['Team Management', 'Task Delegation', 'Code Review'],
+    items: [
+      'Clean Architecture',
+      'Scalable System Design',
+      'Security-Focused Development',
+      'Performance Optimization',
+      'User-Centered Interfaces',
+      'Maintainable Long-Term Code',
+    ],
   },
 ];
 
-const tools = ['Git', 'VS Code', 'Windows OS', 'Cross-browser Compatibility', 'Performance Optimization'];
+const toolSections = [
+  {
+    label: 'Platforms & Infrastructure',
+    items: ['Docker', 'Coolify', 'FrankenPHP', 'Nginx', 'Ubuntu Linux', 'Cloudflare'],
+  },
+  {
+    label: 'Workflow & Tooling',
+    items: ['Git', 'GitHub', 'GitLab', 'CI/CD', 'VS Code', 'Horizon', 'Telescope'],
+  },
+];
 
 const terminalCommands = [
-  'php artisan make:portfolio Wasif',
-  'Route::apiResource("projects", ProjectController::class)',
-  'npm run build && deploy --portfolio',
-  'return response()->json($cleanWork);',
+  'php artisan octane:start --server=frankenphp',
+  'php artisan queue:work --queue=notifications,default',
+  'npm run build && docker compose up -d --build',
+  'Event::dispatch(new ProjectPublished($project));',
 ];
 
 const workflowSteps = [
   {
     title: 'Request',
-    label: 'User action hits a clean route',
-    code: "GET /portfolio/projects",
+    label: 'Route, middleware & validation',
+    code: "Route::middleware('auth:sanctum')\n  ->post('/projects', [ProjectController::class, 'store']);",
   },
   {
-    title: 'Controller',
-    label: 'Business logic stays organized',
-    code: 'ProjectController@index',
+    title: 'Service',
+    label: 'Business logic stays isolated',
+    code: 'app(ProjectService::class)\n  ->create($request->validated());',
   },
   {
-    title: 'Model',
-    label: 'Eloquent handles data clearly',
-    code: 'Project::latest()->get()',
+    title: 'Event',
+    label: 'Listeners, jobs & notifications',
+    code: "event(new ProjectCreated($project));\nProjectCreatedNotification::dispatch($project);",
   },
   {
     title: 'Response',
-    label: 'Fast API response reaches UI',
-    code: 'JSON 200 OK',
+    label: 'API, Inertia or real-time update',
+    code: 'return Inertia::render("Projects/Show", [\n  "project" => $project->load("stack"),\n]);',
   },
 ];
 
@@ -113,11 +207,12 @@ const experiences = [
     title: 'Laravel Developer',
     date: 'Feb 2025 - Present',
     points: [
-      'Developing and maintaining scalable Laravel web applications.',
-      'Building and integrating RESTful APIs for frontend and third-party services.',
-      'Implementing payment gateway integrations for production workflows.',
-      'Designing and optimizing MySQL databases with Eloquent ORM.',
-      'Coordinating team tasks, reviewing code, and maintaining quality standards.',
+      'Building scalable Laravel applications with clean architecture, REST APIs, and event-driven workflows.',
+      'Delivering React, Inertia.js, and Livewire interfaces with Tailwind CSS and responsive UI engineering.',
+      'Implementing authentication with Sanctum/Passport, queues, jobs, notifications, and real-time features.',
+      'Optimizing MySQL/PostgreSQL schemas, Redis caching, and application performance with Octane where needed.',
+      'Supporting Docker-based deployment, CI/CD workflows, and production monitoring with Horizon & Telescope.',
+      'Integrating technical SEO, GA4, admin-managed metadata, and third-party APIs including AI services.',
     ],
   },
   {
@@ -372,14 +467,14 @@ function Hero({ cv }) {
         <Stagger className="hero-copy min-w-0" delay={0.05} immediate>
           <StaggerItem className="hero-badge mb-4 inline-flex max-w-full items-center gap-2 rounded border border-line bg-mist px-3 py-2 text-xs font-semibold text-brand sm:mb-5 sm:text-sm">
             <Sparkles size={16} className="shrink-0" />
-            <span className="min-w-0 leading-snug">{profile.experience} building Laravel web applications</span>
+            <span className="min-w-0 leading-snug">{profile.experience} building scalable digital solutions</span>
           </StaggerItem>
           <StaggerItem as="h1" className="headline max-w-3xl text-3xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
             <span className="name-gradient">{profile.name}</span>
           </StaggerItem>
           <StaggerItem as="p" className="hero-subtitle mt-3 max-w-2xl text-lg font-semibold text-brand sm:mt-4 sm:text-2xl">{profile.role}</StaggerItem>
           <StaggerItem as="p" className="hero-text mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
-            Hands-on Laravel developer focused on scalable backend systems, clean REST APIs, payment gateway integrations, and responsive interfaces with React and Tailwind CSS.
+            I work with modern Laravel, React, and Next.js technologies to build scalable, secure, and high-performance web applications — from backend architecture and real-time systems to responsive UI, DevOps, SEO, and AI integrations.
           </StaggerItem>
 
           <StaggerItem className="button-row mt-6 flex w-full flex-col gap-3 sm:mt-8 sm:flex-row">
@@ -419,7 +514,7 @@ function Hero({ cv }) {
             </div>
             <div className="min-w-0">
               <p className="text-sm font-black text-white">{profile.name}</p>
-              <p className="mt-1 text-xs font-semibold text-emerald-100">Laravel Developer - API Builder</p>
+              <p className="mt-1 text-xs font-semibold text-emerald-100">Full-Stack Laravel Engineer</p>
               <div className="mt-4 grid gap-2">
                 <span className="progress-line"><span style={{ width: '88%' }}></span></span>
                 <span className="progress-line muted"><span style={{ width: '72%' }}></span></span>
@@ -430,8 +525,8 @@ function Hero({ cv }) {
           <div className="tech-ribbon" aria-hidden="true">
             <span>Laravel</span>
             <span>React</span>
-            <span>Tailwind</span>
-            <span>MySQL</span>
+            <span>Next.js</span>
+            <span>Docker</span>
           </div>
 
           <div className="code-window code-float shadow-soft">
@@ -443,14 +538,14 @@ function Hero({ cv }) {
             <div className="space-y-3 overflow-x-auto p-4 font-mono text-xs leading-6 text-slate-200 sm:space-y-4 sm:p-5 sm:text-sm sm:leading-7">
               <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-coral">Route</span>::get(<span className="text-emerald-300">'/portfolio'</span>, <span className="text-sky-300">WasifController</span>::class);</p>
               <p><span className="text-slate-500">// Core strengths</span></p>
-              <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-gold">$skills</span> = [<span className="text-emerald-300">'Laravel'</span>, <span className="text-emerald-300">'REST API'</span>, <span className="text-emerald-300">'MySQL'</span>];</p>
+              <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-gold">$stack</span> = [<span className="text-emerald-300">'Laravel 13'</span>, <span className="text-emerald-300">'React 19'</span>, <span className="text-emerald-300">'Octane'</span>, <span className="text-emerald-300">'Redis'</span>];</p>
               <p className="whitespace-nowrap sm:whitespace-normal"><span className="text-sky-300">return</span> response()-&gt;json(<span className="text-gold">$cleanCode</span>);<span className="typing-cursor"></span></p>
             </div>
           </div>
 
           <div className="hero-metrics mt-5 grid grid-cols-2 gap-4">
             <Metric value="1.8+" label="Years Experience" />
-            <Metric value="API" label="Integration Focus" />
+            <Metric value="Full-Stack" label="Laravel + React" />
           </div>
         </FadeUp>
       </div>
@@ -463,14 +558,14 @@ function About() {
     <Reveal as="section" id="about" className="section section-band">
       <div className="section-heading">
         <p>About</p>
-        <h2>Reliable Laravel development for real business workflows.</h2>
+        <h2>Modern technologies for scalable, secure digital solutions.</h2>
       </div>
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="panel feature-panel">
           <BriefcaseBusiness className="text-brand" size={30} />
           <h3>What I bring</h3>
           <p>
-            I build practical web applications with organized backend logic, responsive UI, and careful database handling. My work experience includes Laravel, payment systems, team coordination, and production-minded feature delivery.
+            I build enterprise-grade Laravel applications with clean architecture, modern frontend engineering, and production-ready infrastructure. My work spans backend APIs, real-time features, responsive UI, database optimization, DevOps deployment, technical SEO, and AI-powered integrations — always with security, performance, and long-term maintainability in mind.
           </p>
         </div>
         <Stagger className="grid gap-3 sm:grid-cols-2">
@@ -491,10 +586,10 @@ function Skills() {
     <Reveal as="section" id="skills" className="section">
       <div className="section-heading">
         <p>Skills</p>
-        <h2>Backend depth with frontend awareness.</h2>
+        <h2>Technical expertise across the full development stack.</h2>
       </div>
       <StackOrbit />
-      <Stagger className="grid gap-5 md:grid-cols-2">
+      <Stagger className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {skills.map(({ title, icon: Icon, items }) => (
           <StaggerItem key={title} as="article" className="panel">
             <div className="mb-5 flex items-center gap-3">
@@ -511,9 +606,16 @@ function Skills() {
           </StaggerItem>
         ))}
       </Stagger>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {tools.map((tool) => (
-          <span key={tool} className="tool-chip">{tool}</span>
+      <div className="mt-8 space-y-4">
+        {toolSections.map(({ label, items }) => (
+          <div key={label}>
+            <p className="mb-3 text-sm font-bold uppercase tracking-wide text-coral">{label}</p>
+            <div className="flex flex-wrap gap-2">
+              {items.map((tool) => (
+                <span key={tool} className="tool-chip">{tool}</span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </Reveal>
@@ -527,10 +629,10 @@ function StackOrbit() {
         <Cpu size={24} />
         <span>Laravel Core</span>
       </div>
-      <span className="orbit-item orbit-one">REST API</span>
-      <span className="orbit-item orbit-two">MySQL</span>
+      <span className="orbit-item orbit-one">Next.js</span>
+      <span className="orbit-item orbit-two">Octane</span>
       <span className="orbit-item orbit-three">React</span>
-      <span className="orbit-item orbit-four">Tailwind</span>
+      <span className="orbit-item orbit-four">Redis</span>
     </div>
   );
 }
@@ -540,7 +642,7 @@ function Experience() {
     <Reveal as="section" id="experience" className="section section-band">
       <div className="section-heading">
         <p>Experience</p>
-        <h2>Hands-on work across backend delivery and responsive UI.</h2>
+        <h2>Production experience across backend, frontend, and DevOps.</h2>
       </div>
       <Stagger className="space-y-5">
         {experiences.map((job) => (
@@ -599,7 +701,7 @@ function WorkflowLab() {
       <div ref={sectionRef}>
         <div className="section-heading">
           <p>Workflow</p>
-          <h2>A Laravel request, visualized like a small product system.</h2>
+          <h2>Event-driven Laravel architecture, from request to response.</h2>
         </div>
         <div className="workflow-lab">
           <div className="workflow-map">
@@ -863,8 +965,8 @@ function Contact({ cv }) {
       <div className="contact-band">
         <div>
           <p className="text-sm font-bold uppercase text-emerald-100">Contact</p>
-          <h2>Need a Laravel developer for your web application?</h2>
-          <p>Available for Laravel development, API integration, backend fixes, and responsive frontend work.</p>
+          <h2>Need a developer for scalable Laravel & full-stack projects?</h2>
+          <p>Available for Laravel backend development, React/Next.js frontend work, API integrations, DevOps setup, technical SEO, and AI chatbot implementations.</p>
         </div>
         <div className="flex w-full flex-col gap-3 sm:flex-row lg:flex-col">
           <a href={`mailto:${profile.email}`} className="light-button w-full justify-center lg:min-w-[160px]">
@@ -895,7 +997,7 @@ function Footer() {
   return (
     <footer className="relative z-10 border-t border-line bg-white px-5 py-6 text-center text-sm text-slate-500">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 sm:flex-row sm:text-left">
-        <p>Copyright {new Date().getFullYear()} Wasif Ahmed. Built with React, Tailwind CSS, and Laravel-minded care.</p>
+        <p>Copyright {new Date().getFullYear()} Wasif Ahmed. Built with React, Tailwind CSS, and modern Laravel practices.</p>
         <a href="/admin" className="font-semibold text-brand hover:underline">
           Admin
         </a>
