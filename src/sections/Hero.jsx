@@ -55,7 +55,7 @@ function TypedCommand() {
       <span className="hero-terminal-icon">
         <Terminal size={14} />
       </span>
-      <span className="hero-terminal-prompt">~/john $</span>
+      <span className="hero-terminal-prompt">~/wasif $</span>
       <code>
         {terminalCommands[index].slice(0, length)}
         <span className="caret" aria-hidden="true" />

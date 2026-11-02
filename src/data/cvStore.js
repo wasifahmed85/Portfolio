@@ -5,7 +5,7 @@ export function emptyCv() {
     fileName: '',
     mimeType: '',
     dataUrl: '',
-    label: 'John Doe CV',
+    label: 'Wasif Ahmed CV',
     updatedAt: null,
   };
 }
@@ -66,10 +66,10 @@ export function downloadCvJson(cv) {
 
 export function getCvJsonTemplate() {
   return {
-    fileName: 'John-Doe-CV.pdf',
+    fileName: 'Wasif-Ahmed-CV.pdf',
     mimeType: 'application/pdf',
     dataUrl: '',
-    label: 'John Doe CV',
+    label: 'Wasif Ahmed CV',
     updatedAt: null,
   };
 }
@@ -130,7 +130,7 @@ export async function cvFromFile(file) {
     fileName: file.name,
     mimeType: file.type || 'application/pdf',
     dataUrl,
-    label: 'John Doe CV',
+    label: 'Wasif Ahmed CV',
     updatedAt: new Date().toISOString(),
   };
 }

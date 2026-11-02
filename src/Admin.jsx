@@ -234,7 +234,7 @@ export default function Admin() {
     <div className="admin-shell admin-dashboard">
       <header className="admin-topbar">
         <div>
-          <p className="admin-eyebrow">John Doe</p>
+          <p className="admin-eyebrow">Wasif Ahmed</p>
           <h1>Projects Admin</h1>
         </div>
         <div className="admin-top-actions">

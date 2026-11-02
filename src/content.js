@@ -13,10 +13,10 @@ import {
 /** Portfolio content — kept separate from rendering so sections stay presentational. */
 
 export const profile = {
-  name: 'John Doe',
-  firstName: 'John',
-  lastName: 'Doe',
-  initials: 'JD',
+  name: 'Wasif Ahmed',
+  firstName: 'Wasif',
+  lastName: 'Ahmed',
+  initials: 'WA',
   role: 'Laravel & Full-Stack Developer',
   shortRole: 'Laravel Developer',
   location: 'Dhaka, Bangladesh',

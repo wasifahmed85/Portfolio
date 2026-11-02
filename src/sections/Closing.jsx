@@ -28,7 +28,7 @@ export function CvSection({ cv }) {
           </div>
           <div className="cv-copy">
             <Eyebrow index="06">Curriculum Vitae</Eyebrow>
-            <h2 className="section-title">{cv.label || 'John Doe CV'}</h2>
+            <h2 className="section-title">{cv.label || 'Wasif Ahmed CV'}</h2>
             <p className="cv-meta">
               {cv.fileName}
               {cv.updatedAt ? ` · Updated ${new Date(cv.updatedAt).toLocaleDateString()}` : ''}

@@ -40,7 +40,7 @@ export default function ProjectDetail({ projectId }) {
   }, [projectId]);
 
   React.useEffect(() => {
-    if (project?.name) document.title = `${project.name} | John Doe`;
+    if (project?.name) document.title = `${project.name} | Wasif Ahmed`;
   }, [project]);
 
   if (loading) {
