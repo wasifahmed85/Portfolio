@@ -1,15 +1,50 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="xp">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description"
-    content="Portfolio of Wasif Ahmed — Laravel & Full-Stack Developer building scalable, secure web applications with React, Next.js, DevOps, SEO, and AI integrations." />
-  <title>Wasif Ahmed | Laravel & Full-Stack Developer</title>
+    content="Portfolio of John Doe — Laravel & Full-Stack Developer building scalable, secure web applications with React, Next.js, DevOps, SEO, and AI integrations." />
+  <meta name="theme-color" content="#050510" />
+  <meta name="color-scheme" content="dark" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="John Doe | Laravel & Full-Stack Developer" />
+  <meta property="og:description"
+    content="Scalable, secure web applications with Laravel, React, Next.js, DevOps, SEO, and AI integrations." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b5cf6'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23050510'/%3E%3Cpath d='M32 10 51 21v22L32 54 13 43V21z' fill='none' stroke='url(%23g)' stroke-width='4'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <title>John Doe | Laravel & Full-Stack Developer</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "John Doe",
+      "jobTitle": "Laravel & Full-Stack Developer",
+      "email": "mailto:dev.wasifahmed@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
+      "sameAs": ["https://github.com/wasifahmed85"]
+    }
+  </script>
+  <style>
+    html.xp, html.xp body { background: #050510; }
+  </style>
 </head>
 
 <body>
+  <!-- Static copy of the contact form so Netlify Forms can detect it at build time -->
+  <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+    <input name="bot-field" />
+  </form>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

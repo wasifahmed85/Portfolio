@@ -34,8 +34,16 @@ import {
   setAdminAuthenticated,
   writeLocalProjects,
 } from './data/projectsStore';
+import './admin.css';
 
 export default function Admin() {
+  // The admin keeps its original light/dark UI, so opt out of the 3D experience theme.
+  React.useLayoutEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('xp');
+    return () => root.classList.add('xp');
+  }, []);
+
   const [authed, setAuthed] = React.useState(isAdminAuthenticated);
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
@@ -226,7 +234,7 @@ export default function Admin() {
     <div className="admin-shell admin-dashboard">
       <header className="admin-topbar">
         <div>
-          <p className="admin-eyebrow">Wasif Ahmed</p>
+          <p className="admin-eyebrow">John Doe</p>
           <h1>Projects Admin</h1>
         </div>
         <div className="admin-top-actions">

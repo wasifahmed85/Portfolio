@@ -57,9 +57,11 @@ export function Reveal({
   );
 }
 
-export function Stagger({ children, className = '', delay = 0, immediate = false, ...props }) {
+export function Stagger({ children, className = '', delay = 0, immediate = false, as = 'div', ...props }) {
+  const Tag = m[as] || m.div;
+
   return (
-    <m.div
+    <Tag
       className={className}
       initial="hidden"
       {...(immediate
@@ -77,7 +79,7 @@ export function Stagger({ children, className = '', delay = 0, immediate = false
       {...props}
     >
       {children}
-    </m.div>
+    </Tag>
   );
 }
 

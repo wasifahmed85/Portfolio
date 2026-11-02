@@ -3,6 +3,15 @@ export default {
   darkMode: 'media',
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    // Default Tailwind container, centred with responsive side padding
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        lg: '2rem',
+      },
+    },
     extend: {
       fontFamily: {
         sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
