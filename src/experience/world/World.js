@@ -13,12 +13,13 @@ import {
   uvVertex,
 } from './shaders';
 
+// Monochrome studio: the "violet" and "cyan" slots now carry warm bone and cool silver.
 const PALETTE = {
-  base: '#0b1020',
-  deep: '#050510',
-  violet: '#8b5cf6',
-  cyan: '#22d3ee',
-  white: '#f8fafc',
+  base: '#0d0d0d',
+  deep: '#050505',
+  violet: '#cfc8b8',
+  cyan: '#e9ecef',
+  white: '#ffffff',
 };
 
 /** Outer radius of the sculpture (largest orbit ring), used to fit it to the viewport. */
@@ -31,7 +32,7 @@ const SCULPTURE_RADIUS = 2.65;
  */
 const SCENE_STATES = {
   wide: {
-    home: { fx: 0.5, fy: 0.02, s: 0.78, dim: 1, tilt: 0 },
+    home: { fx: 0.52, fy: 0.02, s: 0.7, dim: 1, tilt: 0 },
     about: { fx: -0.64, fy: 0.04, s: 0.46, dim: 0.26, tilt: 0.35 },
     skills: { fx: 0.68, fy: -0.04, s: 0.42, dim: 0.24, tilt: -0.2 },
     experience: { fx: -0.68, fy: 0.02, s: 0.4, dim: 0.22, tilt: 0.25 },
@@ -43,7 +44,7 @@ const SCENE_STATES = {
     detail: { fx: 0.72, fy: 0.45, s: 0.42, dim: 0.3, tilt: 0.3 },
   },
   tall: {
-    home: { fx: 0, fy: 0.5, s: 0.92, dim: 1, tilt: 0 },
+    home: { fx: 0.42, fy: 0.22, s: 0.62, dim: 0.5, tilt: 0 },
     about: { fx: 0.35, fy: 0.1, s: 0.9, dim: 0.22, tilt: 0.35 },
     skills: { fx: -0.35, fy: 0, s: 0.85, dim: 0.2, tilt: -0.2 },
     experience: { fx: 0.35, fy: 0, s: 0.85, dim: 0.2, tilt: 0.2 },
@@ -249,15 +250,15 @@ export class World {
     this.tilt.add(this.spin);
     this.scene.add(this.anchor);
 
-    // Faceted iridescent crystal core
+    // Faceted chrome crystal core
     const crystalGeometry = this.track(new THREE.IcosahedronGeometry(0.92, 0));
     const crystalMaterial = this.track(
       this.quality.physical
         ? new THREE.MeshPhysicalMaterial({
-            color: '#3d2c8f',
-            metalness: 0.82,
+            color: '#c4c4c0',
+            metalness: 0.95,
             roughness: 0.16,
-            iridescence: 1,
+            iridescence: 0.18,
             iridescenceIOR: 1.55,
             iridescenceThicknessRange: [180, 820],
             clearcoat: 1,
@@ -266,8 +267,8 @@ export class World {
             flatShading: true,
           })
         : new THREE.MeshStandardMaterial({
-            color: '#4a36a8',
-            metalness: 0.8,
+            color: '#b4b4b0',
+            metalness: 0.92,
             roughness: 0.2,
             envMapIntensity: 1.3,
             flatShading: true,

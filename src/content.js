@@ -26,7 +26,7 @@ export const profile = {
   experience: '1.8+ Years',
 };
 
-export const navItems = ['About', 'Skills', 'Experience', 'Workflow', 'Projects', 'CV', 'Education', 'Contact'];
+export const navItems = ['About', 'Services', 'Skills', 'Experience', 'Workflow', 'Projects', 'CV', 'Education', 'Contact'];
 
 export const heroIntro =
   'I work with modern Laravel, React, and Next.js technologies to build scalable, secure, and high-performance web applications — from backend architecture and real-time systems to responsive UI, DevOps, SEO, and AI integrations.';
@@ -246,3 +246,37 @@ export const contactPitch = {
   title: 'Need a developer for scalable Laravel & full-stack projects?',
   body: 'Available for Laravel backend development, React/Next.js frontend work, API integrations, DevOps setup, technical SEO, and AI chatbot implementations.',
 };
+
+/** "What I can do" — one row per service, expanded on click. */
+export const services = [
+  {
+    title: 'Laravel Application Development',
+    body: 'Scalable Laravel 13 apps with clean architecture, service layers, and maintainable code that stays easy to extend.',
+    tags: ['Laravel 13', 'PHP 8.4', 'Livewire', 'Octane'],
+  },
+  {
+    title: 'REST APIs & Real-Time Systems',
+    body: 'Secure APIs with Sanctum/Passport, WebSockets, events, queues, and jobs for features that react instantly.',
+    tags: ['REST', 'WebSocket', 'Queues', 'Horizon'],
+  },
+  {
+    title: 'React & Next.js Frontends',
+    body: 'Responsive interfaces in React 19, Next.js and Inertia.js, with motion and polish that feel native on every screen.',
+    tags: ['React 19', 'Next.js', 'Inertia', 'Tailwind'],
+  },
+  {
+    title: 'Database Design & Performance',
+    body: 'PostgreSQL and MySQL schemas, indexing, query tuning, and Redis caching so pages stay fast as data grows.',
+    tags: ['PostgreSQL', 'MySQL', 'Redis', 'Indexing'],
+  },
+  {
+    title: 'DevOps, Docker & Deployment',
+    body: 'Dockerised builds, CI/CD pipelines, and production servers on AWS, DigitalOcean, Hetzner, or Coolify.',
+    tags: ['Docker', 'CI/CD', 'Nginx', 'Cloudflare'],
+  },
+  {
+    title: 'Technical SEO & AI Integrations',
+    body: 'Admin-managed metadata, sitemaps, GA4, Core Web Vitals, and chatbots powered by OpenAI, Claude, or Gemini.',
+    tags: ['SEO', 'GA4', 'OpenAI', 'Claude API'],
+  },
+];

@@ -3,7 +3,9 @@ import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, Download, Github, Mail, MapPin, Phone, Terminal } from 'lucide-react';
 import { heroIntro, heroTags, profile, terminalCommands } from '../content';
 import { downloadCvFile, hasCvFile } from '../data/cvStore';
-import { Magnetic, SplitWords } from '../experience/interactions';
+import { Magnetic } from '../experience/interactions';
+import MorphText from '../experience/MorphText';
+import { INTRO_DONE, introPending } from './Intro';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -12,16 +14,6 @@ const rise = (delay) => ({
   animate: { opacity: 1, y: 0 },
   transition: { duration: 1, ease, delay },
 });
-
-/** Positions (in vh around the sculpture's centre) for the floating stack labels. */
-const TAG_ORBIT = [
-  [-38, -22, 0.9],
-  [24, -32, 1.4],
-  [34, 6, 0.7],
-  [-42, 14, 1.2],
-  [6, 33, 1],
-  [-14, -38, 0.6],
-];
 
 function TypedCommand() {
   const reduce = useReducedMotion();
@@ -78,70 +70,65 @@ function LocalTime() {
   return <strong className="local-time">{time}</strong>;
 }
 
-/** Loose, pen-like underline drawn once under the surname. */
-function Scribble() {
-  return (
-    <svg className="hero-scribble" viewBox="0 0 220 26" fill="none" aria-hidden="true" preserveAspectRatio="none">
-      <m.path
-        d="M3 17c28-6 61-11 98-11 31 0 62 3 86 7 9 1.6 18 3.6 29 6M41 21c34-4 77-5 118-2"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.1, ease: [0.65, 0, 0.35, 1], delay: 0.9 }}
-      />
-    </svg>
-  );
+/**
+ * Whether the opening curtain has lifted (straight away when it isn't playing), and
+ * how long to wait for it to clear the screen before the name starts rolling.
+ */
+function useIntroFinished() {
+  const [hadIntro] = React.useState(introPending);
+  const [done, setDone] = React.useState(!hadIntro);
+  React.useEffect(() => {
+    if (done) return undefined;
+    const onDone = () => setDone(true);
+    window.addEventListener(INTRO_DONE, onDone);
+    return () => window.removeEventListener(INTRO_DONE, onDone);
+  }, [done]);
+  return { introDone: done, rollDelay: hadIntro ? 0.75 : 0.15 };
 }
 
 export default function Hero({ cv }) {
   const ref = React.useRef(null);
   const reduce = useReducedMotion();
   const readyCv = hasCvFile(cv);
+  const { introDone, rollDelay } = useIntroFinished();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, reduce ? 1 : 0]);
-  const stageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -220]);
+  const sideY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
 
   return (
-    <section id="home" data-scene="home" ref={ref} className="hero">
-      <m.div className="hero-stage" style={{ y: stageY }} aria-hidden="true">
-        {heroTags.map((tag, index) => {
-          const [ax, ay, depth] = TAG_ORBIT[index % TAG_ORBIT.length];
-          return (
-            <m.span
-              key={tag}
-              className="hero-tag"
-              style={{ '--ax': ax, '--ay': ay, '--depth': depth }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.1, ease, delay: 1 + index * 0.12 }}
-            >
-              <span className="hero-tag-dot" />
-              {tag}
-            </m.span>
-          );
-        })}
-      </m.div>
-
-      <div className="container hero-inner">
+    <section id="home" data-scene="home" ref={ref} className="hero hero-studio">
+      <div className="container hero-inner hero-split">
         <m.div className="hero-copy" style={{ y: copyY, opacity: copyOpacity }}>
           <m.p className="hero-kicker" {...rise(0.1)}>
             <span className="pulse-dot" aria-hidden="true" />
             Based in {profile.location.split(',')[0]} · {profile.experience} building scalable digital solutions
           </m.p>
 
-          <h1 className="hero-title">
-            <SplitWords text={profile.firstName} immediate delay={0.2} className="hero-title-line" />
-            <span className="hero-title-line hero-title-accent">
-              <SplitWords text={profile.lastName} immediate delay={0.32} />
-              <Scribble />
-            </span>
+          <h1 className="hero-mark" aria-label={profile.name}>
+            {/* Same roll as the intro: "PORTFOLIO" turns into the name, letter by letter. */}
+            <MorphText
+              className="hero-mark-line"
+              charClassName="metal-text"
+              from="PORTF"
+              to={profile.firstName.toUpperCase()}
+              play={introDone}
+              delay={rollDelay}
+              replayOnHover
+            />
+            <MorphText
+              className="hero-mark-line"
+              charClassName="metal-text"
+              from="OLIO"
+              to={profile.lastName.toUpperCase()}
+              play={introDone}
+              delay={rollDelay + 0.25}
+              replayOnHover
+            />
           </h1>
 
           <m.p className="hero-role" {...rise(0.6)}>
-            {profile.role}
+            <strong>{profile.role.replace(/ Developer$/, '')}</strong> <em>Developer</em>
           </m.p>
 
           <m.p className="hero-intro" {...rise(0.72)}>
@@ -169,11 +156,29 @@ export default function Hero({ cv }) {
               )}
             </Magnetic>
           </m.div>
+        </m.div>
 
-          <m.div {...rise(1)}>
+        {/* The 3D sculpture fills this column from the fixed canvas behind; these cards float over it. */}
+        <m.aside className="hero-side" style={{ y: sideY, opacity: copyOpacity }} aria-label="Current stack">
+          <m.div className="hero-card hero-card-stack" {...rise(1)}>
+            <p className="hero-card-label">Daily stack</p>
+            <ul>
+              {heroTags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </m.div>
+          <m.div className="hero-card hero-card-status" {...rise(1.1)}>
+            <span className="pulse-dot" aria-hidden="true" />
+            <div>
+              <strong>Open to new projects</strong>
+              <span>Laravel · React · DevOps</span>
+            </div>
+          </m.div>
+          <m.div className="hero-card-terminal" {...rise(1.2)}>
             <TypedCommand />
           </m.div>
-        </m.div>
+        </m.aside>
       </div>
 
       <m.div className="container hero-foot" {...rise(1.15)}>

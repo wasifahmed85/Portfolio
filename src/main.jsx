@@ -10,7 +10,9 @@ import { Contact, CvSection, Education, Footer } from './sections/Closing';
 import Experience from './sections/Experience';
 import Header from './sections/Header';
 import Hero from './sections/Hero';
+import Intro from './sections/Intro';
 import Projects from './sections/Projects';
+import Services from './sections/Services';
 import Skills from './sections/Skills';
 import Workflow from './sections/Workflow';
 import './styles.css';
@@ -108,8 +110,10 @@ function Portfolio() {
 
   return (
     <ExperienceShell onHome hasCv={hasCv}>
+      <Intro />
       <Hero cv={cv} />
       <About liveProjects={liveProjects} />
+      <Services />
       <Skills />
       <Experience />
       <Workflow />

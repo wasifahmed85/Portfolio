@@ -4,6 +4,7 @@ import { ArrowUp, ArrowUpRight, Check, ClipboardCopy, Download, FileText, Github
 import { contactPitch, education, navItems, profile } from '../content';
 import { downloadCvFile, hasCvFile } from '../data/cvStore';
 import { Eyebrow, Magnetic, scrollToTarget, SectionHeading, SplitWords, Tilt } from '../experience/interactions';
+import HelloBreakout from './HelloBreakout';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -285,9 +286,7 @@ export function Footer({ onHome = true, hasCv = false }) {
           </Magnetic>
         </div>
 
-        <p className="footer-wordmark" aria-hidden="true">
-          {profile.name}
-        </p>
+        <HelloBreakout />
 
         <div className="footer-bottom">
           <p>Copyright {new Date().getFullYear()} {profile.name}. Built with React, Three.js, Tailwind CSS, and modern Laravel practices.</p>
