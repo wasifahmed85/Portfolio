@@ -1,6 +1,6 @@
 import React from 'react';
 import { animate, m, useInView, useReducedMotion } from 'framer-motion';
-import { aboutBody, aboutStatement, highlights, skills } from '../content';
+import { aboutBody, aboutStatement, achievements, highlights, skills } from '../content';
 import { Eyebrow, ScrollWords } from '../experience/interactions';
 import { Stagger, StaggerItem } from '../motion';
 
@@ -71,6 +71,19 @@ export default function About({ liveProjects = 0 }) {
             <p className="micro-label">What I bring</p>
             <Stagger as="ol" className="highlight-list">
               {highlights.map((item, index) => (
+                <StaggerItem key={item} as="li" className="highlight">
+                  <span className="highlight-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="highlight-text">{item}</span>
+                  <span className="highlight-rule" aria-hidden="true" />
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
+
+          <div className="about-highlights">
+            <p className="micro-label">Key achievements</p>
+            <Stagger as="ol" className="highlight-list">
+              {achievements.map((item, index) => (
                 <StaggerItem key={item} as="li" className="highlight">
                   <span className="highlight-index">{String(index + 1).padStart(2, '0')}</span>
                   <span className="highlight-text">{item}</span>

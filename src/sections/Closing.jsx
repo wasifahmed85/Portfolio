@@ -1,7 +1,7 @@
 import React from 'react';
 import { m } from 'framer-motion';
-import { ArrowUp, ArrowUpRight, Check, ClipboardCopy, Download, FileText, Github, GraduationCap, Mail, MapPin, Phone, Send } from 'lucide-react';
-import { contactPitch, education, navItems, profile } from '../content';
+import { Award, ArrowUp, ArrowUpRight, BookOpen, Check, ClipboardCopy, Download, FileText, Github, GraduationCap, Languages, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { certifications, contactPitch, education, languages, navItems, profile, training } from '../content';
 import { downloadCvFile, hasCvFile } from '../data/cvStore';
 import { Eyebrow, Magnetic, scrollToTarget, SectionHeading, SplitWords, Tilt } from '../experience/interactions';
 import HelloBreakout from './HelloBreakout';
@@ -51,7 +51,7 @@ export function Education({ hasCv }) {
   return (
     <section id="education" data-scene="education" className="section education">
       <div className="container">
-        <SectionHeading index={hasCv ? '07' : '06'} eyebrow="Education" title="Academic foundation in computer science." />
+        <SectionHeading index={hasCv ? '07' : '06'} eyebrow="Education" title="Academic foundation in computer science, backed by certified training." />
         <ol className="edu-grid">
           {education.map((item, index) => (
             <m.li
@@ -75,6 +75,72 @@ export function Education({ hasCv }) {
             </m.li>
           ))}
         </ol>
+
+        <div className="cred-grid">
+          <m.div
+            className="cred-block"
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease }}
+          >
+            <p className="micro-label cred-label">
+              <Award size={14} /> Certifications
+            </p>
+            <ul className="cred-list">
+              {certifications.map((cert) => (
+                <li key={cert.serial} className="cred-item">
+                  <h3>{cert.title}</h3>
+                  <p className="cred-sub">{cert.type}</p>
+                  <p className="cred-meta">{cert.issuer}</p>
+                  <p className="cred-meta">
+                    Reg. {cert.reg} · Serial {cert.serial}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </m.div>
+
+          <m.div
+            className="cred-block"
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease, delay: 0.1 }}
+          >
+            <p className="micro-label cred-label">
+              <BookOpen size={14} /> Training &amp; courses
+            </p>
+            <ul className="cred-list">
+              {training.map((course) => (
+                <li key={course.title} className="cred-item">
+                  <h3>{course.title}</h3>
+                  <p className="cred-sub">{course.org}</p>
+                  <p className="cred-meta">{course.meta}</p>
+                </li>
+              ))}
+            </ul>
+
+            <p className="micro-label cred-label cred-label-gap">
+              <Languages size={14} /> Languages
+            </p>
+            <ul className="cred-list">
+              {languages.map((lang) => (
+                <li key={lang.name} className="cred-item cred-lang">
+                  <div>
+                    <h3>{lang.name}</h3>
+                    <p className="cred-meta">{lang.level}</p>
+                  </div>
+                  <span className="cred-dots" role="img" aria-label={`${lang.score} out of 5`}>
+                    {[0, 1, 2, 3, 4].map((dot) => (
+                      <i key={dot} className={dot < lang.score ? 'is-on' : ''} />
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </m.div>
+        </div>
       </div>
     </section>
   );

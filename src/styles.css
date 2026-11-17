@@ -2335,6 +2335,118 @@ html.xp #root {
   }
 }
 
+/* certifications, training, languages */
+
+.cred-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.cred-block {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-card);
+}
+
+.cred-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+}
+
+.cred-label-gap {
+  margin-top: 32px;
+}
+
+.cred-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cred-item {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.cred-item:first-child {
+  margin-top: 12px;
+}
+
+.cred-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.cred-sub {
+  margin: 6px 0 0;
+  font-weight: 500;
+  color: var(--cyan-2);
+}
+
+.cred-meta {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-3);
+  overflow-wrap: anywhere;
+}
+
+.cred-lang {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cred-dots {
+  display: inline-flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.cred-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--text-3);
+}
+
+.cred-dots i.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .cred-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* experience: workplace + company blurb */
+
+.timeline-place {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: var(--text-3);
+}
+
+.timeline-about {
+  margin: 20px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--accent);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
 /* ---------------------------------------------------------------- contact */
 
 .contact {

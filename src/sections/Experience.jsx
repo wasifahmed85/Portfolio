@@ -46,8 +46,10 @@ export default function Experience() {
                   <div>
                     <h3>{job.title}</h3>
                     <p className="timeline-company">{job.company}</p>
+                    {job.place ? <p className="timeline-place">{job.place}</p> : null}
                   </div>
                 </header>
+                {job.about ? <p className="timeline-about">{job.about}</p> : null}
                 <ul className="timeline-points">
                   {job.points.map((point, index) => (
                     <m.li

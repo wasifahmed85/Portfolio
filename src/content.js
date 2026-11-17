@@ -62,6 +62,7 @@ export const skills = [
       'WebSocket & Real-Time',
       'Events, Queues & Jobs',
       'Inertia, Horizon & Telescope',
+      'Payment Gateway Integration',
     ],
   },
   {
@@ -99,6 +100,7 @@ export const skills = [
     items: [
       'PostgreSQL 18.x',
       'MySQL 8.x',
+      'Eloquent ORM',
       'Redis 8.x',
       'Database Architecture',
       'Indexing & Migrations',
@@ -163,7 +165,7 @@ export const toolSections = [
   },
   {
     label: 'Workflow & Tooling',
-    items: ['Git', 'GitHub', 'GitLab', 'CI/CD', 'VS Code', 'Horizon', 'Telescope'],
+    items: ['Git', 'GitHub', 'GitLab', 'CI/CD', 'VS Code', 'PHPStorm', 'IntelliJ IDEA', 'Figma', 'Horizon', 'Telescope', 'Windows'],
   },
 ];
 
@@ -203,25 +205,74 @@ export const experiences = [
     title: 'Laravel Developer',
     date: 'Feb 2025 - Present',
     current: true,
+    place: 'MakTech · On-site · Jamuna Future Park, Dhaka, Bangladesh',
+    about: 'Scalable digital products: web apps, mobile apps, SaaS and e-commerce solutions.',
     points: [
       'Building scalable Laravel applications with clean architecture, REST APIs, and event-driven workflows.',
       'Delivering React, Inertia.js, and Livewire interfaces with Tailwind CSS and responsive UI engineering.',
       'Implementing authentication with Sanctum/Passport, queues, jobs, notifications, and real-time features.',
+      'Integrating payment gateways and handling secure checkout and transaction flows.',
       'Optimizing MySQL/PostgreSQL schemas, Redis caching, and application performance with Octane where needed.',
       'Supporting Docker-based deployment, CI/CD workflows, and production monitoring with Horizon & Telescope.',
       'Integrating technical SEO, GA4, admin-managed metadata, and third-party APIs including AI services.',
+      'Managing and coordinating team tasks and deliverables, and conducting code reviews to keep quality standards high.',
     ],
   },
   {
     company: 'Unplug Tech Design Intern',
     title: 'Responsive Web Design Intern',
     date: 'Jun 2024 - Aug 2024',
+    place: 'European IT Institute · Mirpur 10, Dhaka',
     points: [
       'Designed responsive interfaces using mobile-first design principles.',
       'Collaborated with developers on clean layout systems and UI consistency.',
       'Improved hands-on experience with JavaScript interactivity and layout polish.',
+      'Worked on multiple brand websites while following brand design guidelines.',
     ],
   },
+];
+
+/** Government-recognised certifications (NSDA, Bangladesh). */
+export const certifications = [
+  {
+    title: 'Web Design - Level 3',
+    issuer: 'National Skills Development Authority, Bangladesh',
+    type: 'National Skills Certificate (NSC)',
+    reg: 'REG-ICT-WD-L3-001794',
+    serial: 'NSC-ICT-WD-L3-002001',
+  },
+  {
+    title: 'Web Design and Development for Freelancing - Level 3',
+    issuer: 'National Skills Development Authority, Bangladesh',
+    type: 'Statement of Attainment (SOA)',
+    reg: 'REG-ICT-WDDF-L3-001360',
+    serial: 'SOA-ICT-WDDF-L3-001367',
+  },
+];
+
+export const training = [
+  {
+    title: 'Professional Frontend Web Design',
+    org: 'Programming Hero, Bangladesh',
+    meta: '6 months | Jan 2024 - Jun 2024',
+  },
+  {
+    title: 'Web Design & Freelancing, Level 3',
+    org: 'European IT Institute, Mirpur 10, Dhaka (NHRDF)',
+    meta: '3 months | Sep 2024 - Nov 2024',
+  },
+];
+
+export const languages = [
+  { name: 'Bengali', level: 'Native', score: 5 },
+  { name: 'English', level: 'Professional working proficiency', score: 4 },
+];
+
+export const achievements = [
+  'Delivered multiple client web applications independently, from requirements through deployment',
+  'Contributed to team-based feature development on collaborative client projects',
+  'Earned two government-recognized NSDA Level 3 certifications in web design and freelancing',
+  'Completed structured training programs in frontend and full-stack web development',
 ];
 
 export const education = [
