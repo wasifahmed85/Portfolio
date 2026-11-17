@@ -243,6 +243,67 @@
       "createdAt": "2026-03-10T00:00:00.000Z"
     },
     {
+      "id": "client-rrjob",
+      "name": "RR Job Portal",
+      "type": "Web Application",
+      "description": "Bilingual (English / Arabic) job portal where employers post openings and candidates search and apply.",
+      "overview": "RR Job is an online job portal that connects employers and job seekers. Visitors can browse live openings, filter by role, company or location, and apply online, with separate registration and login flows, pricing plans, training and discovery pages, and a full Arabic interface alongside English.",
+      "role": "Laravel Developer",
+      "tag": "individual",
+      "features": [
+        "Job search with filters by title, company, and location",
+        "Candidate and employer registration and login",
+        "Live job listings with quick apply",
+        "Pricing plans, training, and discover sections",
+        "English and Arabic (RTL) interface"
+      ],
+      "challenges": "Delivered a job-board experience that stays fast to search and filter while supporting a full bilingual, right-to-left interface.",
+      "stack": [
+        "Laravel",
+        "Inertia",
+        "Vite",
+        "MySQL"
+      ],
+      "image": "",
+      "liveUrl": "https://rrjob.info/",
+      "githubUrl": "",
+      "featured": true,
+      "style": "showcase",
+      "source": "admin",
+      "createdAt": "2026-11-01T00:00:00.000Z"
+    },
+    {
+      "id": "client-ark-kindness",
+      "name": "ARK",
+      "type": "Web Application",
+      "description": "Community platform for sharing kindness stories, with a personal kindness profile and an inspiration feed.",
+      "overview": "ARK is a community platform for sharing, inspiring, and acting on kindness. Members build a personal kindness record, discover stories in a community feed, and take part in a matching system that connects needs with helpers. I worked on the design refinements for this existing project.",
+      "role": "UI Developer",
+      "tag": "individual",
+      "features": [
+        "Personal kindness identity and impact record",
+        "Community-driven inspiration feed",
+        "Matching system that connects needs with helpers",
+        "Design fixes and polish on an existing codebase"
+      ],
+      "challenges": "Fixed and refined the design of an established platform without disturbing its existing features or theme.",
+      "stack": [
+        "PHP",
+        "JavaScript",
+        "jQuery",
+        "Bootstrap",
+        "HTML",
+        "CSS"
+      ],
+      "image": "",
+      "liveUrl": "https://yourark.org/welcome",
+      "githubUrl": "",
+      "featured": true,
+      "style": "showcase",
+      "source": "admin",
+      "createdAt": "2026-11-10T00:00:00.000Z"
+    },
+    {
       "id": "inv-stock-001",
       "name": "Inventory & Stock Management",
       "type": "Laravel Application",
